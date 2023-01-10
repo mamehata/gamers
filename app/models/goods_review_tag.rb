@@ -1,0 +1,2 @@
+class GoodsReviewTag < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class GoodsLike < ApplicationRecord
+end

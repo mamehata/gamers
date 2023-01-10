@@ -1,0 +1,2 @@
+class GameReviewTag < ApplicationRecord
+end
