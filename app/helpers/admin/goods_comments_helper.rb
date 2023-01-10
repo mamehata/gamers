@@ -1,0 +1,2 @@
+module Admin::GoodsCommentsHelper
+end

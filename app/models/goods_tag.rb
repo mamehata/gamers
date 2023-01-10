@@ -1,0 +1,2 @@
+class GoodsTag < ApplicationRecord
+end

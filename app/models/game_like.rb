@@ -1,0 +1,2 @@
+class GameLike < ApplicationRecord
+end
