@@ -1,0 +1,37 @@
+<nav class="navbar navbar-light  border-bottom mt-3 pb-0 d-flex flex-column">
+  <div class="col-11">
+    <a class="p-0 navbar-brand" href="/">
+      <h1 class="text-center">Gamers</h1>
+    </a>
+  </div>
+
+  <div class="col-11 mt-3 d-flex flex-row justify-content-start">
+    <div class="col-4">
+      <ul class="d-flex flex-row list-unstyled">
+        <li class="nav-link">
+          <%= link_to "About", about_path, class:"text-decoration-none link-dark" %>
+        </li>
+        <div class="vr"></div>
+        <li class="nav-link">
+          <%= link_to "レビュー一覧", game_reviews_path, class:"text-decoration-none link-dark" %>
+        </li>
+        <div class="vr"></div>
+        <li class="nav-link">
+          <%= link_to "新規登録", new_member_registration_path, class:"text-decoration-none link-dark" %>
+        </li>
+        <div class="vr"></div>
+        <li class="nav-link">
+          <%= link_to "ログイン", new_member_session_path, class:"text-decoration-none link-dark" %>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col ms-auto">
+      <div class="d-flex justify-content-end">
+        <div class="nav-link">
+          <p class="link-dark">検索窓</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,47 @@
+<nav class="navbar navbar-light  border-bottom mt-3 pb-0 d-flex flex-column">
+  <div class="col-11">
+    <a class="p-0 navbar-brand" href="/">
+      <h1 class="text-center">Gamers</h1>
+    </a>
+  </div>
+
+  <div class="col-11">
+    <h5 class="text-center">ようこそ、○○さん！</h5>
+  </div>
+
+  <div class="col-11 mt-3 d-flex flex-row justify-content-start">
+    <div class="col-4">
+      <ul class="d-flex flex-row list-unstyled">
+        <li class="nav-link">
+          <%= link_to "マイページ", about_path, class:"text-decoration-none link-dark" %>
+        </li>
+        <div class="vr"></div>
+        <li class="nav-link">
+          <%= link_to "レビュー投稿", game_reviews_path, class:"text-decoration-none link-dark" %>
+        </li>
+        <div class="vr"></div>
+        <li class="nav-link">
+          <%= link_to "レビュー一覧", new_member_registration_path, class:"text-decoration-none link-dark" %>
+        </li>
+        <div class="vr"></div>
+        <li class="nav-link">
+          <%= link_to "ログアウト", new_member_session_path, class:"text-decoration-none link-dark" %>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col ms-auto">
+      <div class="d-flex flex-row justify-content-end">
+        <div class="nav-link">
+          <%= link_to root_path do %>
+            <i class="fa-regular fa-heart link-dark"></i>
+          <% end %>
+        </div>
+        
+        <div class="nav-link">
+          <p class="link-dark">検索窓</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

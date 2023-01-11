@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  namespace :public do
+    get 'homes/top'
+    get 'homes/about'
+  end
   devise_for :members, skip: [:passwords], controllers: {
     registrations: "public/registrations",
     sessions: "public/sessions"
@@ -8,7 +12,7 @@ Rails.application.routes.draw do
     sessions: "admin/sessions"
   }
 
-  scope model: :public do
+  scope module: :public do
     root to: "homes#top"
     get "about" => "homes#about"
     resources :members, except: [:new, :create] do
@@ -23,11 +27,11 @@ Rails.application.routes.draw do
       end
     end
     resources :goods_reviews, except: [:new, :edit, :update] do
-      resources :goods_likes, only: [:create, :destroy]
+      resources :goods_likes, only: [:create, :index, :destroy]
       resources :goods_comments, only: [:create, :update, :destroy]
     end
     resources :game_reviews, except: [:new, :edit, :update] do
-      resources :game_likes, only: [:create, :destroy]
+      resources :game_likes, only: [:create, :index, :destroy]
       resources :game_comments, only: [:create, :update, :destroy]
     end
     resources :groups, except: [:new, :show, :index] do
@@ -46,7 +50,7 @@ Rails.application.routes.draw do
     resources :goods_reviews, only: [:index, :show, :destroy] do
       resources :goods_comments, only: [:destroy]
     end
-    resources :goods_reviews, only: [:index, :show, :destroy] do
+    resources :game_reviews, only: [:index, :show, :destroy] do
       resources :game_comments, only: [:destroy]
     end
     resources :genres, except: [:new, :show, :destroy]
