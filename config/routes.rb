@@ -3,21 +3,10 @@ Rails.application.routes.draw do
     registrations: "public/registrations",
     sessions: "public/sessions"
   }
+
   devise_for :admins, skip: [:passwords, :registrations], controllers: {
     sessions: "admin/sessions"
   }
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  namespace :admin do
-    root to: "homes#top"
-    resources :members, except: [:new, :create, :update]
-    resources :goods_reviews, only: [:index, :show, :destroy] do
-      resources :goods_comments, only: [:destroy]
-    end
-    resources :goods_reviews, only: [:index, :show, :destroy] do
-      resources :game_comments, only: [:destroy]
-    end
-    resources :genres, except: [:new, :show, :destroy]
-  end
 
   scope model: :public do
     root to: "homes#top"
@@ -50,4 +39,17 @@ Rails.application.routes.draw do
       resources :room_chats, only: [:create, :update, :destroy]
     end
   end
+
+  namespace :admin do
+    root to: "homes#top"
+    resources :members, except: [:new, :create, :update]
+    resources :goods_reviews, only: [:index, :show, :destroy] do
+      resources :goods_comments, only: [:destroy]
+    end
+    resources :goods_reviews, only: [:index, :show, :destroy] do
+      resources :game_comments, only: [:destroy]
+    end
+    resources :genres, except: [:new, :show, :destroy]
+  end
+  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
