@@ -1,0 +1,16 @@
+<div id="review_display<%= review.id %>"></div>
+<script>
+  document.addEventListener('turbolinks:load', function() {
+    let raty_elem_<%= review.id %> = document.querySelector("#review_display<%= review.id %>");
+    raty_elem_<%= review.id %>.innerHTML = "";
+    let raty_opt_<%= review.id %> = {
+      size: 30,
+      starOff: '<%= asset_path('star-off.png') %>',
+      starOn: '<%= asset_path('star-on.png') %>',
+      starHalf: '<%= asset_path('star-half.png') %>',
+      readOnly: true,
+      score: '<%= review.star %>'
+    };
+    raty(raty_elem_<%= review.id %>,raty_opt_<%= review.id %>);
+  });
+</script>

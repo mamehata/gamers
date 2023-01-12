@@ -65,7 +65,6 @@ ActiveRecord::Schema.define(version: 2023_01_10_214324) do
     t.integer "member_id", null: false
     t.integer "genre_id", null: false
     t.string "game_title", null: false
-    t.string "game_tag"
     t.text "game_summary", null: false
     t.text "game_impression", null: false
     t.integer "game_price", null: false

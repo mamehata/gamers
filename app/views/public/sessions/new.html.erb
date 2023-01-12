@@ -1,26 +1,65 @@
-<h2>Log in</h2>
+<div class="row mt-4 pb-4 border-bottom">
+  <h2 class="text-center">ログイン</h2>
+</div>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+<div class="row border-bottom justify-content-center">
+  <div class="col-3 border-end d-flex justify-content-center">
+    <div class="text-start">
+      <p class="mt-5">会員登録がお済の方</p>
+      <p class="mt-5">機能を試してみたい方</p>
+      <p class="mt-5">初めてご利用の方</p>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
 
-<%= render "public/shared/links" %>
+  <div class="col-9 mt-5 pb-5 ps-0">
+    <div class="pb-5 border-bottom">
+      <div class="col-5 offset-3">
+        <div>
+          <p class="fs-2">会員登録がお済の方</p>
+        </div>
+
+        <%= form_with model: @member, url: member_session_path do |f| %>
+          <div class="field">
+            <%= f.text_field :member_name, autofocus: true, autocomplete: "member_name", placeholder: "メンバーネーム", class:"form-control" %>
+          </div>
+
+          <div class="field mt-4">
+            <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワード", class:"form-control" %>
+          </div>
+
+          <div class="actions mt-4">
+            <%= f.submit "ログイン", class:"btn btn-info btn-lg link-light fw-bold" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="pb-5 mt-5 border-bottom">
+      <div class="col-4 offset-3">
+        <div>
+          <p class="fs-2">機能を試してみたい方</p>
+        </div>
+
+        <div class="mt-5">
+          <%= link_to "ゲストログイン", public_guest_sign_in_path, method: :post, class:"btn btn-secondary fw-bold" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="pb-5 mt-5 border-bottom">
+      <div class="col-4 offset-3">
+        <div>
+          <p class="fs-2">初めてご利用の方</p>
+        </div>
+
+        <div class="mt-5">
+          <p>会員登録がお済でない方はこちらよりご登録下さい。</p>
+        </div>
+
+        <div class="mt-5">
+          <%= render "public/shared/links" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

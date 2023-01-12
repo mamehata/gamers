@@ -13,7 +13,13 @@
   </head>
 
   <body>
-    <%= render "layouts/admin_header" %>
+    <% if member_signed_in? %>
+      <%= render "layouts/public_header" %>
+    <% elsif admin_signed_in? %>
+      <%= render "layouts/admin_header" %>
+    <% else %>
+      <%= render "layouts/header" %>
+    <% end %>
     <%= yield %>
   </body>
 </html>

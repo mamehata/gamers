@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  namespace :public do
-    get 'homes/top'
-    get 'homes/about'
-  end
   devise_for :members, skip: [:passwords], controllers: {
     registrations: "public/registrations",
     sessions: "public/sessions"
@@ -11,6 +7,9 @@ Rails.application.routes.draw do
   devise_for :admins, skip: [:passwords, :registrations], controllers: {
     sessions: "admin/sessions"
   }
+  devise_scope :member do
+    post 'public/guest_sign_in', to: 'public/sessions#guest_sign_in'
+  end
 
   scope module: :public do
     root to: "homes#top"
@@ -26,11 +25,11 @@ Rails.application.routes.draw do
         end
       end
     end
-    resources :goods_reviews, except: [:new, :edit, :update] do
+    resources :goods_reviews, except: [:edit, :update] do
       resources :goods_likes, only: [:create, :index, :destroy]
       resources :goods_comments, only: [:create, :update, :destroy]
     end
-    resources :game_reviews, except: [:new, :edit, :update] do
+    resources :game_reviews, except: [:edit, :update] do
       resources :game_likes, only: [:create, :index, :destroy]
       resources :game_comments, only: [:create, :update, :destroy]
     end

@@ -1,29 +1,54 @@
-<h2>Sign up</h2>
+<div class="row mt-4 pb-4 border-bottom">
+  <h2 class="text-center">新規登録</h2>
+</div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "public/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<div class="row border-bottom">
+  <div class="col-3 border-end">
+    <p class="mt-5 text-center">会員登録</p>
   </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+  <div class="col-9 mt-5 pb-5 ps-0">
+    <div class="pb-5 border-bottom">
+      <div class="col-5 offset-3">
+        <div>
+          <p class="fs-2">会員登録</p>
+        </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+        <%= form_with model: @member, url: member_registration_path do |f| %>
+          <%= render "public/shared/error_messages", resource: resource %>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
+          <div class="field">
+            <%= f.text_field :member_name, autofocus: true, autocomplete: "member_name", placeholder: "メンバーネーム", class:"form-control" %>
+          </div>
 
-<%= render "public/shared/links" %>
+          <div class="field mt-4">
+            <%= f.email_field :email, autocomplete: "email", placeholder: "メールアドレス", class:"form-control" %>
+          </div>
+
+          <div class="field mt-4">
+            <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> 文字以上入力してください。)</em>
+            <% end %><br/>
+            <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワード", class:"form-control" %>
+          </div>
+
+          <div class="field mt-4">
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "パスワード確認", class:"form-control" %>
+          </div>
+
+          <div class="field mt-4">
+            <%= f.file_field :profile_image, placeholder: "画像を選択してください", accept: "image/*" %>
+          </div>
+
+          <div class="actions mt-4">
+            <%= f.submit "登録", class:"btn btn-info btn-lg link-light fw-bold btn-block" %>
+          </div>
+        <% end %>
+
+        <div class="mt-4">
+          <%= render "public/shared/links" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
