@@ -8,7 +8,14 @@
       starOn: '<%= asset_path('star-on.png') %>',
       starHalf: '<%= asset_path('star-half.png') %>',
       half: true,
-      scoreName: 'review[game_rating]',
+      hints: [
+        ['1/2 bad', 'bad'],
+        ['1/2 poor', 'poor'],
+        ['1/2 regular', 'regular'],
+        ['1/2 good', 'good'],
+        ['1/2 gorgeous', 'gorgeous'],
+      ],
+      scoreName: 'game_review[game_rating]',
     };
     raty(raty_elem,raty_opt);
   });

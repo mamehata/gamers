@@ -1,0 +1,118 @@
+<div class="row mt-4 pb-4 border-bottom">
+  <h2 class="text-center">ゲームレビュー詳細</h2>
+</div>
+
+<div class="container">
+  <div class="row mt-5 justify-content-center">
+    <div class="col-7 pb-5 border-bottom">
+      <table class="table table-borderless">
+        <tr>
+          <th>タイトル</th>
+          <td>
+            <%= @game_review.game_title %>
+          </td>
+        </tr>
+
+        <tr>
+          <th>概要</th>
+          <td>
+            <%= @game_review.game_summary %>
+          </td>
+        </tr>
+
+        <tr>
+          <th>ジャンル</th>
+          <td>
+            <%= @game_review.genre.genre_name %>
+          </td>
+        </tr>
+
+        <tr>
+          <th>タグ</th>
+          <td>
+            <% @game_tags.each do |game_tag| %>
+              <%= game_tag.game_tag_name %>
+            <% end %>
+          </td>
+        </tr>
+
+        <tr>
+          <th>感想</th>
+          <td>
+            <%= @game_review.game_impression %>
+          </td>
+        </tr>
+
+        <tr>
+          <th>￥</th>
+          <td>
+            <%= @game_review.game_price.to_s(:delimited) %>
+          </td>
+        </tr>
+
+        <tr>
+          <th>評価</th>
+          <td>
+            <div id="review_display<%= @game_review.id %>">
+              <%=  %>
+            </div>
+            <%= render "review_display", game_review: @game_review %>
+          </td>
+        </tr>
+      </table>
+
+      <div class="row d-flex justify-content-evenly">
+        <button class="actions col-3 mt-4 btn btn btn-info btn-lg text-light" data-bs-toggle="modal" data-bs-target="#groupCreate">
+          <a>グループ作成</a>
+        </button>
+        <div class="modal fade" id="groupCreate">
+          <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">グループ作成</h5>
+                <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+
+              <%= form_with model: @gruop do |f| %>
+              <div class="modal-body">
+                <div class="mt-3">
+                  <%= f.text_field :group_name, autofocus: true, placeholder: "グループネーム", class:"form-control" %>
+                </div>
+                <div class="mt-3 pb-3">
+                  <%= f.text_field :group_introduction, placeholder: "グループ紹介文", class:"form-control" %>
+                </div>
+                <%= f.hidden_field :game_review_id, value: @game_review.id %>
+              </div>
+
+              <div class="modal-footer">
+                  <div class="me-auto">
+                    <%= f.submit "グループ作成", class:"btn btn-info text-light" %>
+                  </div>
+                  <div>
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+              </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-2 mt-4 text-center">
+          <% if @game_review.game_likes?(current_member) %>
+            <%= link_to game_review_game_like_path(@game_review.id), method: :delete do %>
+              <i class="fa-solid fa-heart fa-3x"></i>
+            <% end %>
+          <% else %>
+            <%= link_to game_review_game_likes_path(@game_review.id), method: :post do %>
+              <i class="fa-regular fa-heart fa-3x"></i>
+            <% end %>
+          <% end %>
+        </div>
+
+        <button class="actions col-2 mt-4 btn btn btn-danger btn-lg">
+          <%= link_to "削除", game_review_path(@game_review), method: :delete, class:"text-light" %>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

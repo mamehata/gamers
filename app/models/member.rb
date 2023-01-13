@@ -9,7 +9,7 @@ class Member < ApplicationRecord
   has_many :goods_likes, dependent: :destroy
   has_many :goods_reviews_likes, through: :goods_likes
   has_many :game_likes, dependent: :destroy
-  has_many :game_reviews_likes, through: :game_likes
+  has_many :game_review_likes, through: :game_likes
   has_many :goods_comments, dependent: :destroy
   has_many :game_comments, dependent: :destroy
   has_many :group_members, dependent: :destroy

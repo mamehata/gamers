@@ -5,15 +5,23 @@
 <div class="container">
   <div class="row mt-5 justify-content-center">
     <div class="col-7 pb-5 border-bottom">
-      <%= form_with model: @member, url: member_registration_path do |f| %>
+      <%= form_with model: @game_review do |f| %>
         <table class="table table-borderless">
           <tr>
             <th>
               <%= f.label :タイトル %>
             </th>
-
             <td>
-              <%= f.text_field :game_title, autofocus: true, autocomplete: "member_name", placeholder: "タイトル", class:"form-control" %>
+              <%= f.text_field :game_title, autofocus: true, autocomplete: "game_title", placeholder: "タイトル", class:"form-control" %>
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              <%= f.label :概要 %>
+            </th>
+            <td>
+              <%= f.text_area :game_summary, autocomplete: "game_summary", placeholder: "概要", class:"form-control" %>
             </td>
           </tr>
 
@@ -21,9 +29,8 @@
             <th>
               <%= f.label :ジャンル %>
             </th>
-
             <td>
-              <%#= f.collection_select :email, autocomplete: "email", placeholder: "ジャンルを選択してください", class:"form-control" %>
+              <%= f.collection_select :genre_id, @genres, :id, :genre_name, {prompt: "ジャンルを選択してください"}, class:"form-select" %>
             </td>
           </tr>
 
@@ -31,9 +38,8 @@
             <th>
               <%= f.label :タグ %>
             </th>
-
             <td>
-              <%= f.text_field :password_confirmation, autocomplete: "new-password", placeholder: "空白を空ける事で複数登録出来ます", class:"form-control" %>
+              <%= f.text_field :game_tag_name, autocomplete: "game_tag_name", placeholder: "空白を空ける事で複数登録出来ます", class:"form-control" %>
             </td>
           </tr>
 
@@ -41,9 +47,8 @@
             <th>
               <%= f.label :感想 %>
             </th>
-
             <td>
-              <%= f.text_area  :password_confirmation, autocomplete: "new-password", placeholder: "感想", class:"form-control" %>
+              <%= f.text_area :game_impression, autocomplete: "game_impression", placeholder: "感想", class:"form-control" %>
             </td>
           </tr>
 
@@ -51,9 +56,8 @@
             <th>
               <%= f.label :￥  %>
             </th>
-
             <td>
-              <%= f.number_field :password_confirmation, autocomplete: "new-password", placeholder: "値段", class:"form-control" %>
+              <%= f.number_field :game_price, autocomplete: "game_price", placeholder: "値段", class:"form-control" %>
             </td>
           </tr>
 
@@ -61,7 +65,6 @@
             <th>
               <%= f.label :評価  %>
             </th>
-
             <td>
               <div class="form-group row" id="review">
                 <%= f.hidden_field :game_rating, id: :review_star %>

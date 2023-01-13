@@ -18,6 +18,12 @@ class Public::SessionsController < Devise::SessionsController
   #   super
   # end
 
+  def guest_sign_in
+    member = Member.guest
+    sign_in member
+    redirect_to member_path(member), notice: 'guestmemberでログインしました。'
+  end
+
   protected
 
   # If you have extra params to permit, append them to the sanitizer.
@@ -26,16 +32,10 @@ class Public::SessionsController < Devise::SessionsController
   # end
 
   def after_sign_in_path_for(current_member)
-    member_path
+    member_path(current_member)
   end
 
   def after_sign_out_path_for(resource)
     root_path
-  end
-
-  def guest_sign_in
-    member = Member.guest
-    sign_in member
-    redirect_to member_path(member), notice: 'guestmemberでログインしました。'
   end
 end

@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 2023_01_10_214324) do
   end
 
   create_table "game_tags", force: :cascade do |t|
-    t.string "game_tag_name", null: false
+    t.string "game_tag_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -129,7 +129,7 @@ ActiveRecord::Schema.define(version: 2023_01_10_214324) do
   end
 
   create_table "goods_tags", force: :cascade do |t|
-    t.string "goods_tag_name", null: false
+    t.string "goods_tag_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
