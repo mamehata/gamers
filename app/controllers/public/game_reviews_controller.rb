@@ -7,6 +7,12 @@ class Public::GameReviewsController < ApplicationController
   def show
     @game_review = GameReview.find(params[:id])
     @game_tags = @game_review.game_tags
+    @game_comments = @game_review.game_comments
+    if params[:game_comment_id].nil?
+      @game_comment = GameComment.new
+    else
+      @game_comment = GameComment.find(params[:game_comment_id])
+    end
   end
 
   def create
@@ -38,6 +44,7 @@ class Public::GameReviewsController < ApplicationController
   private
 
   def game_review_params
-    params.require(:game_review).permit(:game_title, :game_summary, :game_impression, :game_price, :game_rating, :genre_id, :game_tag_name)
+    params.require(:game_review)
+          .permit(:game_title, :game_summary, :game_impression, :game_price, :game_rating, :genre_id, :game_tag_name)
   end
 end
