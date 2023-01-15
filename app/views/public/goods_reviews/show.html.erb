@@ -1,17 +1,5 @@
-<div class="row mt-4">
+<div class="row mt-4 pb-4 border-bottom">
   <h2 class="text-center">グッズレビュー詳細</h2>
-  <div class="col-12 border-bottom">
-    <a class="ms-5 ms-4">
-      <%= link_to game_reviews_path do %>
-        ゲームレビュー
-      <% end %>
-    </a>
-    <a class="ms-3">
-      <%= link_to goods_reviews_path do %>
-        グッズレビュー
-      <% end %>
-    </a>
-  </div>
 </div>
 
 <div class="row mt-5 justify-content-center border-bottom">
@@ -58,9 +46,7 @@
         <th>評価</th>
         <td>
           <div id="review_display<%= @goods_review.id %>">
-            <%=  %>
           </div>
-
           <%= render "review_display", goods_review: @goods_review %>
         </td>
       </tr>

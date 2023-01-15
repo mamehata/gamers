@@ -5,6 +5,7 @@ class Public::GameReviewsController < ApplicationController
   end
 
   def show
+    @group = Group.new
     @game_review = GameReview.find(params[:id])
     @game_tags = @game_review.game_tags
     @game_comments = @game_review.game_comments
@@ -13,6 +14,10 @@ class Public::GameReviewsController < ApplicationController
     else
       @game_comment = GameComment.find(params[:game_comment_id])
     end
+  end
+
+  def index
+    @game_reviews = GameReview.all
   end
 
   def create

@@ -33,7 +33,7 @@ Rails.application.routes.draw do
       resources :game_likes, only: [:create, :index, :destroy]
       resources :game_comments, only: [:create, :update, :destroy]
     end
-    resources :groups, except: [:new, :show, :index] do
+    resources :groups, except: [:new, :index] do
       resources :group_members, only: [:create, :destroy]
       resources :group_chats, only: [:create, :update, :destroy]
     end

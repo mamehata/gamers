@@ -1,42 +1,14 @@
-<div class="row mt-4 pb-4 border-bottom">
-  <h2 class="text-center">マイページ</h2>
-</div>
-
-<div class="container">
-  <div class="row mt-5 pb-5 justify-content-center border-bottom">
-    <div class="col-2">
-      <%= image_tag @member.get_profile_image(150, 150), class:"img-thumbnail", id:"profile_image" %>
-    </div>
-    <div class="col-4" id="table">
-      <table class="table table-borderless">
-        <tr>
-          <th>ユーザーネーム</th>
-          <td><%= @member.member_name %></td>
-        </tr>
-        <tr>
-          <th>紹介文</th>
-          <td><%= @member.member_introduction %></td>
-        </tr>
-        <tr>
-          <td><%= link_to "編集", edit_member_path(current_member), class:"btn btn-success btn-lg" %></td>
-          <td><%= link_to "フォローする", edit_member_path(current_member), class:"btn btn-primary btn-lg" %></td>
-        </tr>
-      </table>
-    </div>
-  </div>
-</div>
-
 <div class="row mt-4">
-  <h2 class="text-center">グッズレビュー詳細</h2>
+  <h2 class="text-center">ゲームレビュー詳細</h2>
   <div class="col-12 border-bottom">
     <a class="ms-5 ms-4">
       <%= link_to game_reviews_path do %>
-        ゲーム
+        ゲームレビュー
       <% end %>
     </a>
     <a class="ms-3">
       <%= link_to goods_reviews_path do %>
-        ゲームグッズ
+        グッズレビュー
       <% end %>
     </a>
   </div>
@@ -59,7 +31,7 @@
             <div>￥ <%= game_review.game_price.to_s(:delimited) %></div>
             <div>
               評価 <div id="review_display<%= game_review.id %>"></div>
-              <%= render "public/game_reviews/review_display", game_review: game_review %>
+              <%= render "review_display", game_review: game_review %>
             </div>
           </div>
         </div>

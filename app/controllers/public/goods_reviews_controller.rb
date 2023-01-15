@@ -14,6 +14,10 @@ class Public::GoodsReviewsController < ApplicationController
     end
   end
 
+  def index
+    @goods_reviews = GoodsReview.all
+  end
+
   def create
     @goods_review = GoodsReview.new(goods_review_params.except(:goods_tag_name))
     @goods_review.member_id = current_member.id
