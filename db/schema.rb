@@ -174,16 +174,21 @@ ActiveRecord::Schema.define(version: 2023_01_14_065155) do
   create_table "group_members", force: :cascade do |t|
     t.integer "member_id", null: false
     t.integer "group_id", null: false
+    t.integer "group_room_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["group_id"], name: "index_group_members_on_group_id"
+    t.index ["group_room_id"], name: "index_group_members_on_group_room_id"
     t.index ["member_id"], name: "index_group_members_on_member_id"
   end
 
   create_table "group_rooms", force: :cascade do |t|
     t.integer "room_owner_id", null: false
+    t.integer "group_id", null: false
+    t.string "room_name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_group_rooms_on_group_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -250,8 +255,10 @@ ActiveRecord::Schema.define(version: 2023_01_14_065155) do
   add_foreign_key "goods_reviews", "members"
   add_foreign_key "group_chats", "groups"
   add_foreign_key "group_chats", "members"
+  add_foreign_key "group_members", "group_rooms"
   add_foreign_key "group_members", "groups"
   add_foreign_key "group_members", "members"
+  add_foreign_key "group_rooms", "groups"
   add_foreign_key "groups", "game_reviews"
   add_foreign_key "room_chats", "group_members"
   add_foreign_key "room_chats", "group_rooms"

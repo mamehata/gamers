@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   devise_for :admins, skip: [:passwords, :registrations], controllers: {
     sessions: "admin/sessions"
   }
+
   devise_scope :member do
     post 'public/guest_sign_in', to: 'public/sessions#guest_sign_in'
   end
@@ -38,7 +39,6 @@ Rails.application.routes.draw do
       resources :group_chats, only: [:create, :update, :destroy]
     end
     resources :group_rooms, only: [:create, :destroy] do
-      resources :room_members, only: [:create, :destroy]
       resources :room_chats, only: [:create, :update, :destroy]
     end
   end

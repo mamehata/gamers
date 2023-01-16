@@ -1,17 +1,5 @@
-<div class="row mt-4">
+<div class="row mt-4 pb-4 border-bottom">
   <h2 class="text-center">ゲームレビュー詳細</h2>
-  <div class="col-12 border-bottom">
-    <a class="ms-5 ms-4">
-      <%= link_to game_reviews_path do %>
-        ゲームレビュー
-      <% end %>
-    </a>
-    <a class="ms-3">
-      <%= link_to goods_reviews_path do %>
-        グッズレビュー
-      <% end %>
-    </a>
-  </div>
 </div>
 
 <div class="row mt-5 justify-content-center border-bottom">
@@ -72,9 +60,30 @@
     </table>
 
     <div class="row d-flex justify-content-evenly">
-      <button class="actions col-3 mt-4 btn btn btn-info btn-lg text-light" data-bs-toggle="modal" data-bs-target="#groupCreate">
-        <a>グループ作成</a>
-      </button>
+      <% if !Group.exists?(game_review_id: @game_review.id) && current_member.id == @game_review.member.id %>
+        <button class="actions col-3 mt-4 btn btn-info btn-lg" data-bs-toggle="modal" data-bs-target="#groupCreate">
+          <a class="fw-bold text-light">グループ作成</a>
+        </button>
+      <% elsif Group.exists?(game_review_id: @game_review.id) && current_member.id == @game_review.member.id %>
+        <button class="col-3 mt-4 btn btn-outline-dark btn-lg" disabled>
+          <a class="fw-bold">グループ作成済み</a>
+        </button>
+      <% elsif Group.exists?(game_review_id: @game_review.id) && current_member.id != @game_review.member.id && !GroupMember.exists?(member_id: current_member.id, group_id: @game_review.group.id) %>
+        <button class="actions col-3 mt-4 btn btn-info btn-lg text-light">
+          <%= link_to group_group_members_path(@game_review.group), method: :post, class:"text-light fw-bold" do %>
+            グループへ参加
+          <% end %>
+        </button>
+      <% elsif Group.exists?(game_review_id: @game_review.id) && current_member.id != @game_review.member.id %>
+        <button class="col-3 mt-4 btn btn-outline-dark btn-lg" disabled>
+          <a class="fw-bold">グループ参加済み</a>
+        </button>
+      <% else %>
+        <button class="col-3 mt-4 btn btn-outline-dark btn-lg" disabled>
+          <a class="fw-bold">グループ未作成</a>
+        </button>
+      <% end %>
+
       <div class="modal fade" id="groupCreate">
         <div class="modal-dialog modal-dialog-centered modal-lg">
           <div class="modal-content">
@@ -97,13 +106,13 @@
               </div>
 
               <div class="modal-footer">
-                  <div class="me-auto">
-                    <%= f.submit "グループ作成", class:"btn btn-info text-light" %>
-                  </div>
+                <div class="me-auto">
+                  <%= f.submit "グループ作成", class:"btn btn-info text-light" %>
+                </div>
 
-                  <div>
-                    <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  </div>
+                <div>
+                  <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                </div>
               </div>
             <% end %>
           </div>
@@ -123,7 +132,7 @@
       </div>
 
       <button class="actions col-2 mt-4 btn btn btn-danger btn-lg">
-        <%= link_to "削除", game_review_path(@game_review), method: :delete, class:"text-light" %>
+        <%= link_to "削除", game_review_path(@game_review), method: :delete, class:"text-light fw-bold" %>
       </button>
     </div>
   </div>
@@ -164,7 +173,7 @@
         <tr>
           <td><%= image_tag game_comment.member.get_profile_image(50, 50) %></td>
 
-          <td>
+          <td class="text-break">
             <%= game_comment.member.member_name %><br>
             <%= game_comment.game_comment %>
           </td>
