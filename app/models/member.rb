@@ -20,6 +20,8 @@ class Member < ApplicationRecord
   has_many :followings, through: :active_follows, source: :followed
   has_many :followers, through: :passive_follows, source: :follower
 
+  validates :member_name, presence: true
+
   has_one_attached :profile_image
 
   def get_profile_image(width, height)

@@ -1,0 +1,27 @@
+<div class="row mt-4 pb-4 border-bottom">
+  <h2 class="text-center">本当に退会しますか？</h2>
+</div>
+
+<div class="border-bottom">
+  <div class="container">
+    <div class="row mt-5 pb-5 justify-content-center">
+      <div class="col-9">
+        <h5 class="d-flex justify-content-center">退会すると会員登録情報や、</h5>
+        <h5 class="d-flex justify-content-center">これまでのレビュー情報が全て削除されます。</h5>
+        <h5 class="d-flex justify-content-center">退会する場合は、「退会する」をクリックしてください。</h5>
+      </div>
+      <div class="col-6 d-flex justify-content-evenly">
+        <button class="actions col-3 mt-4 btn btn-info btn-lg text-light">
+          <%= link_to member_path(current_member), class:"text-light fw-bold" do %>
+            退会しない
+          <% end %>
+        </button>
+        <button class="actions col-3 mt-4 btn btn-danger btn-lg text-light">
+          <%= link_to member_path(current_member), method: :delete, class:"text-light fw-bold" do %>
+            退会する
+          <% end %>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

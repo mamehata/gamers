@@ -1,4 +1,5 @@
 class Public::GroupsController < ApplicationController
+  before_action :group_member?, only: [:show]
 
   def show
     @group_room = GroupRoom.new
@@ -55,5 +56,12 @@ class Public::GroupsController < ApplicationController
   def group_params
     params.require(:group)
           .permit(:group_name, :group_introduction, :game_review_id, :group_owner_id)
+  end
+
+  def group_member?
+    @group = Group.find(params[:id])
+    unless GroupMember.exists?(member_id: current_member, group_id: @group)
+      redirect_to member_path(current_member)
+    end
   end
 end

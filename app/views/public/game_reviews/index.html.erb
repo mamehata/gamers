@@ -25,10 +25,15 @@
 
         <div class="card-body">
           <div class="card-text">
-            <div>タイトル <%= game_review.game_title %></div>
-            <div>概要 <%= game_review.game_summary %></div>
-            <div>感想 <%= game_review.game_impression %></div>
-            <div>￥ <%= game_review.game_price.to_s(:delimited) %></div>
+            <div class="mb-1 text-nowrap overflow-hidden text-truncate">タイトル <%= game_review.game_title %></div>
+            <div class="mb-1 text-nowrap overflow-hidden text-truncate">概要 <%= game_review.game_summary %></div>
+            <div class="mb-1 text-nowrap overflow-hidden text-truncate">
+              <% game_review.game_tags.each do |game_tag| %>
+                タグ <%= game_tag.game_tag_name %>
+              <% end %>
+            </div>
+            <div class="mb-1 text-nowrap overflow-hidden text-truncate">感想 <%= game_review.game_impression %></div>
+            <div class="mb-1 text-nowrap overflow-hidden text-truncate">￥ <%= game_review.game_price.to_s(:delimited) %></div>
             <div>
               評価 <div id="review_display<%= game_review.id %>"></div>
               <%= render "review_display", game_review: game_review %>

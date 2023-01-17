@@ -9,3 +9,11 @@
 #table > table ~ tr > th, td {
   height: 60px;
 }
+
+#member-group-table > thead > tr > th:nth-of-type(3) {
+  width: 80px;
+}
+
+#member-group-table > thead > tr > th:nth-of-type(5) {
+  width: 120px;
+}
