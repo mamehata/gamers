@@ -27,4 +27,8 @@ class GoodsReview < ApplicationRecord
   def goods_likes?(member)
     self.goods_likes.where(member_id: member.id).exists?
   end
+
+  def self.search_goods_review(search_word)
+    self.where('goods_name LIKE?', "%#{search_word}%")
+  end
 end

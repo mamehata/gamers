@@ -60,7 +60,31 @@
                 </div>
               </div>
             </td>
-            <td><%= link_to "フォローする", edit_member_path(current_member), class:"btn btn-primary btn-lg" %></td>
+            <td>
+              <% if current_member != @member %>
+                <% if !current_member.following?(@member) %>
+                  <%= link_to "フォローする", member_follows_path(@member), method: :post, class:"btn btn-primary btn-lg" %>
+                <% else %>
+                  <%= link_to "フォロー外す", member_follow_path(@member), method: :delete, class:"btn btn-warning btn-lg" %>
+                <% end %>
+              <% else %>
+                <button class="btn" disabled>
+                  <%= link_to "フォローする", member_follows_path(@member), method: :post, class:"btn btn-primary btn-lg" %>
+                </button>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%= link_to followings_member_follows_path(@member), class:"text-dark" do %>
+                フォロー：<%= @member.followings.count %>人<br>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to followers_member_follows_path(@member), class:"text-dark" do %>
+                フォロワー：<%= @member.followers.count %>人
+              <% end %>
+            </td>
           </tr>
         </table>
       </div>
@@ -72,12 +96,12 @@
   <h2 class="text-center">グッズレビュー詳細</h2>
   <div class="col-12 border-bottom">
     <a class="ms-5 ms-4">
-      <%= link_to member_path(@member) do %>
+      <%= link_to member_path(@member), class:"text-dark" do %>
         投稿したゲームレビュー
       <% end %>
     </a>
     <a class="ms-3">
-      <%= link_to member_path(@member, sort: "0") do %>
+      <%= link_to member_path(@member, sort: "0"), class:"text-dark" do %>
         投稿したグッズレビュー
       <% end %>
     </a>
@@ -128,6 +152,7 @@
             <div class="card-text">
               <div class="mb-1 text-nowrap overflow-hidden text-truncate">タイトル <%= game_review.game_title %></div>
               <div class="mb-1 text-nowrap overflow-hidden text-truncate">概要 <%= game_review.game_summary %></div>
+              <div class="mb-1 text-nowrap overflow-hidden text-truncate">ジャンル <%= game_review.genre.genre_name %></div>
               <div class="mb-1 text-nowrap overflow-hidden text-truncate">
                 <% game_review.game_tags.each do |game_tag| %>
                   タグ <%= game_tag.game_tag_name %>
@@ -150,7 +175,7 @@
   </div>
 </div>
 
-<div class="row mt-4 border-bottom">
+<div class="row mt-4 pb-4 border-bottom">
   <h2 class="text-center">参加中のグループ一覧</h2>
 </div>
 
@@ -162,6 +187,7 @@
           <tr>
             <th>グループネーム</th>
             <th>ゲームタイトル</th>
+            <th>オーナー</th>
             <th>メンバー数</th>
             <th>紹介文</th>
             <th></th>
@@ -172,6 +198,8 @@
             <tr class="align-middle">
               <td><%= group.group_name %></td>
               <td><%= group.game_review.game_title %></td>
+              <% group_owner = Member.find_by(id: group.group_owner_id) %>
+              <td><%= group_owner.member_name %></td>
               <td><%= group.members.count %></td>
               <td><%= group.group_introduction %></td>
               <td>

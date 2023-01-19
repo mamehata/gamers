@@ -29,4 +29,8 @@ class GameReview < ApplicationRecord
   def game_likes?(member)
     self.game_likes.where(member_id: member.id).exists?
   end
+
+  def self.search_game_review(search_word)
+    self.where('game_title LIKE?', "%#{search_word}%")
+  end
 end

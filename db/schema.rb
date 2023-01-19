@@ -189,6 +189,7 @@ ActiveRecord::Schema.define(version: 2023_01_14_065155) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["group_id"], name: "index_group_rooms_on_group_id"
+    t.index ["room_owner_id"], name: "index_group_rooms_on_room_owner_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -199,6 +200,7 @@ ActiveRecord::Schema.define(version: 2023_01_14_065155) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["game_review_id"], name: "index_groups_on_game_review_id"
+    t.index ["group_owner_id"], name: "index_groups_on_group_owner_id"
   end
 
   create_table "members", force: :cascade do |t|
@@ -236,8 +238,8 @@ ActiveRecord::Schema.define(version: 2023_01_14_065155) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "follows", "followeds"
-  add_foreign_key "follows", "followers"
+  add_foreign_key "follows", "members", column: "followed_id"
+  add_foreign_key "follows", "members", column: "follower_id"
   add_foreign_key "game_comments", "game_reviews"
   add_foreign_key "game_comments", "members"
   add_foreign_key "game_likes", "game_reviews"
@@ -259,7 +261,9 @@ ActiveRecord::Schema.define(version: 2023_01_14_065155) do
   add_foreign_key "group_members", "groups"
   add_foreign_key "group_members", "members"
   add_foreign_key "group_rooms", "groups"
+  add_foreign_key "group_rooms", "members", column: "room_owner_id"
   add_foreign_key "groups", "game_reviews"
+  add_foreign_key "groups", "members", column: "group_owner_id"
   add_foreign_key "room_chats", "group_members"
   add_foreign_key "room_chats", "group_rooms"
   add_foreign_key "room_members", "group_members"

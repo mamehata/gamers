@@ -9,6 +9,10 @@ class Public::MembersController < ApplicationController
     end
   end
 
+  def index
+    @members = Member.all
+  end
+
   def confirmation
   end
 

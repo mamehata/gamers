@@ -10,7 +10,7 @@
   </div>
 
   <div class="col-11 mt-3 d-flex flex-row justify-content-start">
-    <div class="col-4">
+    <div class="col-5">
       <ul class="d-flex flex-row list-unstyled">
         <li class="nav-link">
           <%= link_to "マイページ", member_path(current_member), class:"text-decoration-none link-dark" %>
@@ -25,6 +25,10 @@
         </li>
         <div class="vr"></div>
         <li class="nav-link">
+          <%= link_to "会員一覧", members_path, class:"text-decoration-none link-dark" %>
+        </li>
+        <div class="vr"></div>
+        <li class="nav-link">
           <%= link_to "ログアウト", destroy_member_session_path, method: :delete, class:"text-decoration-none link-dark" %>
         </li>
       </ul>
@@ -33,13 +37,63 @@
     <div class="col ms-auto">
       <div class="d-flex flex-row justify-content-end">
         <div class="nav-link">
-          <%= link_to root_path do %>
+          <%= link_to game_likes_path do %>
             <i class="fa-regular fa-heart link-dark"></i>
           <% end %>
         </div>
 
         <div class="nav-link">
-          <p class="link-dark">検索窓</p>
+          <div class="link-dark">
+            <button class="actions btn btn-sm" data-bs-toggle="modal" data-bs-target="#search">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <div class="modal fade" id="search">
+              <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">検索</h5>
+                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <%= form_with url: searchs_path, method: :get do  |f| %>
+                    <div class="modal-body">
+                      <div class="mt-3">
+                        <%= f.search_field :search_member, placeholder: "メンバーネーム", class:"form-control" %>
+                      </div>
+
+                      <div class="mt-3">
+                        <%= f.search_field :search_game_review, placeholder: "ゲームタイトル", class:"form-control" %>
+                      </div>
+
+                      <div class="mt-3">
+                        <%= f.collection_select :search_game_genre, Genre.all, :genre_name, :genre_name, {prompt: "ジャンルを選択してください"}, class:"form-select" %>
+                      </div>
+
+                      <div class="mt-3">
+                        <%= f.search_field :search_goods_review, placeholder: "グッズ名", class:"form-control" %>
+                      </div>
+
+                      <div class="mt-3">
+                        <%= f.collection_select :search_game_tag, GameTag.all, :game_tag_name, :game_tag_name, {prompt: "ゲームタグを選択してください"}, class:"form-select" %>
+                      </div>
+
+                      <div class="mt-3">
+                        <%= f.collection_select :search_goods_tag, GoodsTag.all, :goods_tag_name, :goods_tag_name, {prompt: "グッズタグを選択してください"}, class:"form-select" %>
+                      </div>
+
+                    <div class="modal-footer">
+                      <div class="me-auto">
+                        <%= f.submit "検索", class:"btn btn-success" %>
+                      </div>
+
+                      <div>
+                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

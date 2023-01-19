@@ -1,7 +1,7 @@
 class CreateGroupRooms < ActiveRecord::Migration[6.1]
   def change
     create_table :group_rooms do |t|
-      t.integer :room_owner_id, null: false
+      t.references :room_owner, null: false, foreign_key: { to_table: :members }
       t.references :group, null: false, foreign_key: true
       t.string :room_name, null: false
 

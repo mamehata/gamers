@@ -7,18 +7,20 @@ class Member < ApplicationRecord
   has_many :goods_reviews, dependent: :destroy
   has_many :game_reviews, dependent: :destroy
   has_many :goods_likes, dependent: :destroy
-  has_many :goods_reviews_likes, through: :goods_likes
+  has_many :like_goods_reviews, through: :goods_likes, source: :goods_review
   has_many :game_likes, dependent: :destroy
-  has_many :game_review_likes, through: :game_likes
+  has_many :like_game_reviews, through: :game_likes, source: :game_review
   has_many :goods_comments, dependent: :destroy
   has_many :game_comments, dependent: :destroy
   has_many :group_members, dependent: :destroy
   has_many :groups, through: :group_members
+  has_many :group_rooms, through: :group_members, source: :group_room
+  has_many :owner_groups, through: :group_members, source: :group, foreign_key: "group_owner_id"
   has_many :group_chats, dependent: :destroy
-  has_many :active_follows, class_name: "Follow", foreign_key: "follower_id", dependent: :destroy
-  has_many :passive_follows, class_name: "Follow", foreign_key: "followed_id", dependent: :destroy
-  has_many :followings, through: :active_follows, source: :followed
-  has_many :followers, through: :passive_follows, source: :follower
+  has_many :follows, class_name: "Follow", foreign_key: "follower_id", dependent: :destroy
+  has_many :reverse_of_follows, class_name: "Follow", foreign_key: "followed_id", dependent: :destroy
+  has_many :followings, through: :follows, source: :followed
+  has_many :followers, through: :reverse_of_follows, source: :follower
 
   validates :member_name, presence: true
 
@@ -34,8 +36,29 @@ class Member < ApplicationRecord
 
   def self.guest
     find_or_create_by!(member_name: 'guestmember' ,email: 'guest@example.com') do |member|
-      member.password = SecureRandom.urlsafe_base64
-      member.member_name = "guestmember"
+    member.password = SecureRandom.urlsafe_base64
+    member.member_name = "guestmember"
     end
+  end
+
+  def follow(other_member)
+    if self != other_member
+    self.follows.find_or_create_by(followed_id: other_member)
+    end
+  end
+
+  def unfollow(other_member)
+    follow = self.follows.find_by(followed_id: other_member).destroy
+    if !follow.nil?
+      follow.destroy
+    end
+  end
+
+  def following?(member)
+    self.followings.exists?(id: member)
+  end
+
+  def self.search_member(search_word)
+    self.where('member_name LIKE?', "%#{search_word}%")
   end
 end

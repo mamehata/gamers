@@ -23,7 +23,7 @@ class Public::GameReviewsController < ApplicationController
   def create
     @game_review = GameReview.new(game_review_params.except(:game_tag_name))
     @game_review.member_id = current_member.id
-    game_tags = params[:game_review][:game_tag_name].split(' ')
+    game_tags = params[:game_review][:game_tag_name].split(/[\A[:space:]\z]/)
     if @game_review.save
       @game_review.save_tag(game_tags)
       flash[:notice] = "レビューが投稿されました"

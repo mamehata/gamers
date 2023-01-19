@@ -1,4 +1,8 @@
 class Public::GameLikesController < ApplicationController
+  def index
+    @like_game_reviews = current_member.like_game_reviews
+  end
+
   def create
     @game_like = GameLike.new(member_id: current_member.id, game_review_id: params[:game_review_id])
     @game_like.save

@@ -15,37 +15,45 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: "homes#top"
     get "about" => "homes#about"
+    get "game_likes" => "game_likes#index"
+    get "goods_likes" => "goods_likes#index"
+    get "searchs" => "searchs#search"
     resources :members, except: [:new, :create] do
       member do
         get "confirmation"
       end
-      resources :follows, only: [:create, :destroy] do
+      resource :follows, only: [:create, :destroy] do
         member do
-          get "followeds"
+          get "followings"
           get "followers"
         end
       end
     end
     resources :goods_reviews, except: [:edit, :update] do
-      resources :goods_likes, only: [:create, :index, :destroy]
+      resources :goods_likes, only: [:create, :destroy]
       resources :goods_comments, only: [:create, :update, :destroy]
     end
     resources :game_reviews, except: [:edit, :update] do
-      resources :game_likes, only: [:create, :index, :destroy]
+      resources :game_likes, only: [:create, :destroy]
       resources :game_comments, only: [:create, :update, :destroy]
     end
     resources :groups, except: [:new, :index] do
       resources :group_members, only: [:create, :destroy]
       resources :group_chats, only: [:create, :update, :destroy]
     end
-    resources :group_rooms, only: [:create, :destroy] do
+    resources :group_rooms, only: [:show, :create, :destroy] do
       resources :room_chats, only: [:create, :update, :destroy]
     end
   end
 
   namespace :admin do
     root to: "homes#top"
-    resources :members, except: [:new, :create, :update]
+    get "searchs" => "searchs#search"
+    resources :members, except: [:new, :edit, :create, :update] do
+      member do
+        get "confirmation"
+      end
+    end
     resources :goods_reviews, only: [:index, :show, :destroy] do
       resources :goods_comments, only: [:destroy]
     end

@@ -8,7 +8,7 @@
       <div class="text-start mt-2">
         <% @group_members.each do |group_member| %>
           <p class="mt-2">
-            <%= link_to member_path(group_member) do %>
+            <%= link_to member_path(group_member), class:"text-dark" do %>
               <%= group_member.member_name %>
             <% end %>
           </p>
