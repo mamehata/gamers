@@ -15,7 +15,7 @@ class Member < ApplicationRecord
   has_many :group_members, dependent: :destroy
   has_many :groups, through: :group_members
   has_many :group_rooms, through: :group_members, source: :group_room
-  has_many :owner_groups, through: :group_members, source: :group, foreign_key: "group_owner_id"
+  has_many :owner_groups, through: :group_members, source: :group
   has_many :group_chats, dependent: :destroy
   has_many :follows, class_name: "Follow", foreign_key: "follower_id", dependent: :destroy
   has_many :reverse_of_follows, class_name: "Follow", foreign_key: "followed_id", dependent: :destroy

@@ -65,7 +65,7 @@
                 <% if !current_member.following?(@member) %>
                   <%= link_to "フォローする", member_follows_path(@member), method: :post, class:"btn btn-primary btn-lg" %>
                 <% else %>
-                  <%= link_to "フォロー外す", member_follow_path(@member), method: :delete, class:"btn btn-warning btn-lg" %>
+                  <%= link_to "フォロー外す", member_follows_path(@member), method: :delete, class:"btn btn-warning btn-lg" %>
                 <% end %>
               <% else %>
                 <button class="btn" disabled>

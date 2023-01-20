@@ -41,7 +41,7 @@ Rails.application.routes.draw do
       resources :group_members, only: [:create, :destroy]
       resources :group_chats, only: [:create, :update, :destroy]
     end
-    resources :group_rooms, only: [:show, :create, :destroy] do
+    resources :group_rooms, only: [:show, :create, :update, :destroy] do
       resources :room_chats, only: [:create, :update, :destroy]
     end
   end

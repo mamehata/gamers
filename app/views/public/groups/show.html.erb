@@ -1,11 +1,12 @@
 <div class="row mt-4 pb-4 border-bottom">
-  <h2 class="text-center"><%= @group.group_name %>のグループページ</h2>
+  <h2 class="text-center">グループページ</h2>
 </div>
 
 <div class="row border-bottom justify-content-center">
   <div class="col-3 border-end p-0">
     <div class="col-12 border-bottom d-flex justify-content-center" id="group-sideber-top">
       <div class="text-start mt-2">
+        <h6 class="mt-2">グループメンバー一覧</h6>
         <% @group_members.each do |group_member| %>
           <p class="mt-2">
             <%= link_to member_path(group_member), class:"text-dark" do %>
@@ -96,10 +97,17 @@
         </div>
       </div>
     </div>
-    <div class="col-12 mt-3">
-      <% @group_rooms.each do |group_room| %>
-        <%= group_room.room_name %>
-      <% end %>
+    <div class="col-12 d-flex justify-content-center" id="group-sideber-top">
+      <div class="text-start mt-2">
+        <h6 class="mt-2">グループルーム一覧</h6>
+        <% @group_rooms.each do |group_room| %>
+          <p class="mt-2">
+            <%= link_to group_room_path(group_room), class:"text-dark" do %>
+              <%= group_room.room_name %>
+            <% end %>
+          </p>
+        <% end %>
+      </div>
     </div>
   </div>
 
