@@ -1,8 +1,8 @@
 class CreateGameReviewTags < ActiveRecord::Migration[6.1]
   def change
     create_table :game_review_tags do |t|
-      t.references :game_tag, null: false, foreign_key: true
-      t.references :game_review, null: false, foreign_key: true
+      t.integer :game_tag_id, null: false, foreign_key: true
+      t.integer :game_review_id, null: false, foreign_key: true
 
       t.timestamps
     end
