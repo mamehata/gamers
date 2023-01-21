@@ -1,0 +1,22 @@
+// Place all the styles related to the public/homes controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+#top-text-space {
+  height: 200px;
+}
+
+#top-image {
+  background-image: image-url("game-console-g4ce2a4276_1280.jpg");
+  background-size: cover;
+}
+
+#about-image {
+  height: 286px;
+  background-image: image-url("puzzle-gb2ca4e25b_1920.jpg");
+  background-size: cover;
+}
+
+.container > #about-background-color {
+  width: 600px;
+  background-color: rgba(0, 0, 0, 0.4);
+}

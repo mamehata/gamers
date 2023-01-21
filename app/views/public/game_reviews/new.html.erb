@@ -1,0 +1,95 @@
+<div class="row mt-4">
+  <h2 class="text-center">ゲームレビュー</h2>
+  <div class="col-12 border-bottom">
+    <a class="ms-5 ms-4">
+      <%= link_to new_game_review_path do %>
+        ゲームレビュー
+      <% end %>
+    </a>
+    <a class="ms-3">
+      <%= link_to new_goods_review_path do %>
+        グッズレビュー
+      <% end %>
+    </a>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row mt-5 justify-content-center">
+    <div class="col-7 pb-5 border-bottom">
+      <%= form_with model: @game_review do |f| %>
+        <table class="table table-borderless">
+          <tr>
+            <th>
+              <%= f.label :タイトル %>
+            </th>
+            <td>
+              <%= f.text_field :game_title, autofocus: true, autocomplete: "game_title", placeholder: "タイトル", class:"form-control" %>
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              <%= f.label :概要 %>
+            </th>
+            <td>
+              <%= f.text_area :game_summary, autocomplete: "game_summary", placeholder: "概要", class:"form-control" %>
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              <%= f.label :ジャンル %>
+            </th>
+            <td>
+              <%= f.collection_select :genre_id, @genres, :id, :genre_name, {prompt: "ジャンルを選択してください"}, class:"form-select" %>
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              <%= f.label :タグ %>
+            </th>
+            <td>
+              <%= f.text_field :game_tag_name, autocomplete: "game_tag_name", placeholder: "空白を空ける事で複数登録出来ます", class:"form-control" %>
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              <%= f.label :感想 %>
+            </th>
+            <td>
+              <%= f.text_area :game_impression, autocomplete: "game_impression", placeholder: "感想", class:"form-control" %>
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              <%= f.label :￥  %>
+            </th>
+            <td>
+              <%= f.number_field :game_price, autocomplete: "game_price", placeholder: "値段", class:"form-control" %>
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              <%= f.label :評価  %>
+            </th>
+            <td>
+              <div class="form-group row" id="review">
+                <%= f.hidden_field :game_rating, id: :review_star %>
+              </div>
+              <%= render "review" %>
+            </td>
+          </tr>
+        </table>
+
+        <div class="actions mt-4 text-center">
+          <%= f.submit "登録", class:"btn btn-info btn-lg link-light fw-bold btn-block" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

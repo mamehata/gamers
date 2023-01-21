@@ -1,0 +1,96 @@
+<div class="row">
+  <div class="col-5 mt-3 d-flex flex-column">
+    <div class="col-9 align-self-center">
+      <h3 class="text-center">ようこそGamarsへ！</h3>
+    </div>
+    <div id="top-text-space"></div>
+    <div class="col-9 align-self-center">
+      <h6 class="text-start">このサイトへ立ち寄っていただきありがとうございます。</h6>
+    </div>
+    <div id="top-text-space"></div>
+    <div class="col-9 align-self-center">
+      <h6 class="text-start">
+        このサイトは、ゲーム・ゲームグッズのレビューサイトになります。
+        会員でない方もレビューの閲覧はできますが、レビューの投稿やグル
+        ープへの参加には会員登録が必要になります。。
+      </h6>
+    </div>
+  </div>
+  <div class="col-7" id="top-image"></div>
+</div>
+
+<div class="row mt-5 px-5 justify-content-center">
+  <h3>ゲームレビュー新着</h3>
+  <div class="col-12 ms-5 ps-4 d-flex flex-row flex-wrap">
+    <% @game_reviews.each do |game_review| %>
+      <div class="card col-2 m-3">
+        <div class="card-header">
+          <%= image_tag game_review.member.get_profile_image(40, 40) %>
+          <%= game_review.member.member_name %>
+        </div>
+
+        <div class="card-body">
+          <div class="card-text">
+            <div class="mb-1 text-nowrap overflow-hidden text-truncate">タイトル <%= game_review.game_title %></div>
+            <div class="mb-1 text-nowrap overflow-hidden text-truncate">概要 <%= game_review.game_summary %></div>
+            <div class="mb-1 text-nowrap overflow-hidden text-truncate">
+              <% game_review.game_tags.each do |game_tag| %>
+                タグ <%= game_tag.game_tag_name %>
+              <% end %>
+            </div>
+            <div class="mb-1 text-nowrap overflow-hidden text-truncate">感想 <%= game_review.game_impression %></div>
+            <div class="mb-1 text-nowrap overflow-hidden text-truncate">￥ <%= game_review.game_price.to_s(:delimited) %></div>
+            <div>
+              評価 <div id="review_display<%= game_review.id %>"></div>
+              <%= render "public/game_reviews/review_display", game_review: game_review %>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <%= link_to "詳細へ", game_review_path(game_review), class:"link-dark" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-2 ms-auto">
+    <%= link_to "全てのゲームレビューを見る>", game_reviews_path, class:"text-dark" %>
+  </div>
+</div>
+
+<div class="row mt-5 pb-5 px-5 justify-content-center border-bottom">
+  <h3>ゲームグッズレビュー新着</h3>
+  <div class="col-12 ms-5 ps-4 d-flex flex-row flex-wrap">
+    <% @goods_reviews.each do |goods_review| %>
+      <div class="card col-2 m-3">
+        <div class="card-header">
+          <%= image_tag goods_review.member.get_profile_image(40, 40) %>
+          <%= goods_review.member.member_name %>
+        </div>
+
+        <div class="card-body">
+          <div class="card-text">
+            <div class="mb-1 text-nowrap overflow-hidden text-truncate">グッズネーム <%= goods_review.goods_name %></div>
+            <div class="mb-1 text-nowrap overflow-hidden text-truncate">概要 <%= goods_review.goods_summary %></div>
+            <div class="mb-1 text-nowrap overflow-hidden text-truncate">
+              <% goods_review.goods_tags.each do |goods_tag| %>
+                タグ <%= goods_tag.goods_tag_name %>
+              <% end %>
+            </div>
+            <div class="mb-1 text-nowrap overflow-hidden text-truncate">感想 <%= goods_review.goods_impression %></div>
+            <div class="mb-1 text-nowrap overflow-hidden text-truncate">￥ <%= goods_review.goods_price.to_s(:delimited) %></div>
+            <div>
+              評価 <div id="review_display<%= goods_review.id %>"></div>
+              <%= render "public/goods_reviews/review_display", goods_review: goods_review %>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <%= link_to "詳細へ", goods_review_path(goods_review), class:"link-dark" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-2 ms-auto">
+    <%= link_to "全てのグッズレビューを見る>", goods_reviews_path, class:"text-dark" %>
+  </div>
+</div>

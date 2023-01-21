@@ -1,0 +1,214 @@
+<div class="row mt-4 pb-4 border-bottom">
+  <h2 class="text-center">マイページ</h2>
+</div>
+
+<div class="border-bottom">
+  <div class="container">
+    <div class="row mt-5 pb-5 justify-content-center">
+      <div class="col-2">
+        <%= image_tag @member.get_profile_image(150, 150), class:"img-thumbnail", id:"profile_image" %>
+      </div>
+      <div class="col-4" id="table">
+        <table class="table table-borderless">
+          <tr>
+            <th>メンバーネーム</th>
+            <td><%= @member.member_name %></td>
+          </tr>
+          <tr>
+            <th>メンバー紹介文</th>
+            <td><%= @member.member_introduction %></td>
+          </tr>
+          <tr>
+            <td>
+              <button class="actions btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#memberupdate">
+                <a class="fw-bold text-light">会員編集</a>
+              </button>
+              <div class="modal fade" id="memberupdate">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">会員編集</h5>
+                      <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <%= form_with model: @member do |f| %>
+                      <div class="modal-body">
+                        <div class="mt-3">
+                          <%= f.text_field :member_name, autofocus: true, placeholder: "メンバーネーム", class:"form-control" %>
+                        </div>
+
+                        <div class="mt-3 pb-3">
+                          <%= f.text_field :member_introduction, placeholder: "メンバー紹介文", class:"form-control" %>
+                        </div>
+                      </div>
+
+                      <div class="modal-footer">
+                        <div class="me-auto">
+                          <%= f.submit "保存", class:"btn btn-success text-light" %>
+                        </div>
+
+                        <button class="btn btn-danger" type="button">
+                          <%= link_to "退会", confirmation_member_path(@member), class:"text-light" %>
+                        </button>
+
+                        <div>
+                          <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <% if current_member != @member %>
+                <% if !current_member.following?(@member) %>
+                  <%= link_to "フォローする", member_follows_path(@member), method: :post, class:"btn btn-primary btn-lg" %>
+                <% else %>
+                  <%= link_to "フォロー外す", member_follows_path(@member), method: :delete, class:"btn btn-warning btn-lg" %>
+                <% end %>
+              <% else %>
+                <button class="btn" disabled>
+                  <%= link_to "フォローする", member_follows_path(@member), method: :post, class:"btn btn-primary btn-lg" %>
+                </button>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%= link_to followings_member_follows_path(@member), class:"text-dark" do %>
+                フォロー：<%= @member.followings.count %>人<br>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to followers_member_follows_path(@member), class:"text-dark" do %>
+                フォロワー：<%= @member.followers.count %>人
+              <% end %>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <h2 class="text-center">グッズレビュー詳細</h2>
+  <div class="col-12 border-bottom">
+    <a class="ms-5 ms-4">
+      <%= link_to member_path(@member), class:"text-dark" do %>
+        投稿したゲームレビュー
+      <% end %>
+    </a>
+    <a class="ms-3">
+      <%= link_to member_path(@member, sort: "0"), class:"text-dark" do %>
+        投稿したグッズレビュー
+      <% end %>
+    </a>
+  </div>
+</div>
+
+<div class="row mt-5 px-5 justify-content-center border-bottom">
+  <div class="col-12 ms-5 ps-4 d-flex flex-row flex-wrap">
+    <% if @game_reviews == nil %>
+      <% @goods_reviews.each do |goods_review| %>
+        <div class="card col-2 m-3">
+          <div class="card-header">
+            <%= image_tag goods_review.member.get_profile_image(40, 40) %>
+            <%= goods_review.member.member_name %>
+          </div>
+
+          <div class="card-body">
+            <div class="card-text">
+              <div class="mb-1 text-nowrap overflow-hidden text-truncate">タイトル <%= goods_review.goods_name %></div>
+              <div class="mb-1 text-nowrap overflow-hidden text-truncate">概要 <%= goods_review.goods_summary %></div>
+              <div class="mb-1 text-nowrap overflow-hidden text-truncate">
+                <% goods_review.goods_tags.each do |goods_tag| %>
+                  タグ <%= goods_tag.goods_tag_name %>
+                <% end %>
+              </div>
+              <div class="mb-1 text-nowrap overflow-hidden text-truncate">感想 <%= goods_review.goods_impression %></div>
+              <div class="mb-1 text-nowrap overflow-hidden text-truncate">￥ <%= goods_review.goods_price.to_s(:delimited) %></div>
+              <div>
+                評価 <div id="review_display<%= goods_review.id %>"></div>
+                <%= render "public/goods_reviews/review_display", goods_review: goods_review %>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <%= link_to "詳細へ", goods_review_path(goods_review), class:"link-dark" %>
+          </div>
+        </div>
+      <% end %>
+    <% elsif @goods_reviews == nil %>
+      <% @game_reviews.each do |game_review| %>
+        <div class="card col-2 m-3">
+          <div class="card-header">
+            <%= image_tag game_review.member.get_profile_image(40, 40) %>
+            <%= game_review.member.member_name %>
+          </div>
+
+          <div class="card-body">
+            <div class="card-text">
+              <div class="mb-1 text-nowrap overflow-hidden text-truncate">タイトル <%= game_review.game_title %></div>
+              <div class="mb-1 text-nowrap overflow-hidden text-truncate">概要 <%= game_review.game_summary %></div>
+              <div class="mb-1 text-nowrap overflow-hidden text-truncate">ジャンル <%= game_review.genre.genre_name %></div>
+              <div class="mb-1 text-nowrap overflow-hidden text-truncate">
+                <% game_review.game_tags.each do |game_tag| %>
+                  タグ <%= game_tag.game_tag_name %>
+                <% end %>
+              </div>
+              <div class="mb-1 text-nowrap overflow-hidden text-truncate">感想 <%= game_review.game_impression %></div>
+              <div class="mb-1 text-nowrap overflow-hidden text-truncate">￥ <%= game_review.game_price.to_s(:delimited) %></div>
+              <div>
+                評価 <div id="review_display<%= game_review.id %>"></div>
+                <%= render "public/game_reviews/review_display", game_review: game_review %>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <%= link_to "詳細へ", game_review_path(game_review), class:"link-dark" %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row mt-4 pb-4 border-bottom">
+  <h2 class="text-center">参加中のグループ一覧</h2>
+</div>
+
+<div class="container">
+  <div class="row mt-5 pb-5 justify-content-center">
+    <div class="col-12">
+      <table class="table" id="member-group-table">
+        <thead>
+          <tr>
+            <th>グループネーム</th>
+            <th>ゲームタイトル</th>
+            <th>オーナー</th>
+            <th>メンバー数</th>
+            <th>紹介文</th>
+            <th></th>
+          </tr>
+        </thead>
+        <% @groups.each do |group| %>
+          <body>
+            <tr class="align-middle">
+              <td><%= group.group_name %></td>
+              <td><%= group.game_review.game_title %></td>
+              <% group_owner = Member.find_by(id: group.group_owner_id) %>
+              <td><%= group_owner.member_name %></td>
+              <td><%= group.members.count %></td>
+              <td><%= group.group_introduction %></td>
+              <td>
+                <%= link_to "グループページへ", group_path(group), class:"text-dark" %>
+              </td>
+            </tr>
+          </body>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
