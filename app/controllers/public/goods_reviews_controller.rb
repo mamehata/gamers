@@ -15,7 +15,7 @@ class Public::GoodsReviewsController < ApplicationController
   end
 
   def index
-    @goods_reviews = GoodsReview.all
+    @goods_reviews = GoodsReview.page(params[:page]).per(20)
   end
 
   def create

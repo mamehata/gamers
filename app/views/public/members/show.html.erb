@@ -93,7 +93,11 @@
 </div>
 
 <div class="row mt-4">
-  <h2 class="text-center">グッズレビュー詳細</h2>
+  <% if @game_reviews == nil %>
+    <h2 class="text-center">投稿したグッズレビュー</h2>
+  <% elsif @goods_reviews == nil %>
+    <h2 class="text-center">投稿したゲームレビュー</h2>
+  <% end %>
   <div class="col-12 border-bottom">
     <a class="ms-5 ms-4">
       <%= link_to member_path(@member), class:"text-dark" do %>
@@ -173,6 +177,13 @@
       <% end %>
     <% end %>
   </div>
+  <div class="col-12 d-flex justify-content-center mt-2 mb-4">
+    <% if @game_reviews == nil %>
+      <%= paginate @goods_reviews %>
+    <% elsif @goods_reviews == nil %>
+      <%= paginate @game_reviews %>
+    <% end %>
+  </div>
 </div>
 
 <div class="row mt-4 pb-4 border-bottom">
@@ -209,6 +220,9 @@
           </body>
         <% end %>
       </table>
+    </div>
+    <div class="col-12 d-flex justify-content-center mt-2 mb-4">
+      <%= paginate @groups %>
     </div>
   </div>
 </div>
