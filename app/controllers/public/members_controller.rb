@@ -1,16 +1,16 @@
 class Public::MembersController < ApplicationController
   def show
     @member = Member.find(params[:id])
-    @groups = @member.groups
+    @groups = @member.groups.page(params[:page]).per(10)
     if params[:sort] == "0"
-      @goods_reviews = @member.goods_reviews
+      @goods_reviews = @member.goods_reviews.page(params[:page]).per(5)
     else
-      @game_reviews = @member.game_reviews
+      @game_reviews = @member.game_reviews.page(params[:page]).per(5)
     end
   end
 
   def index
-    @members = Member.all
+    @members = Member.page(params[:page]).per(20)
   end
 
   def confirmation

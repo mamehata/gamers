@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 2023_01_14_065155) do
 
   create_table "game_likes", force: :cascade do |t|
     t.integer "member_id", null: false
-    t.integer "game_review_", null: false
+    t.integer "game_review_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -128,7 +128,7 @@ ActiveRecord::Schema.define(version: 2023_01_14_065155) do
   end
 
   create_table "goods_reviews", force: :cascade do |t|
-    t.integer "member_", null: false
+    t.integer "member_id", null: false
     t.string "goods_name", null: false
     t.text "goods_summary", null: false
     t.text "goods_impression", null: false

@@ -18,3 +18,26 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.pagination > span {
+  padding: 5px 13px;
+  color: #2E2963;
+}
+
+.pagination > span > a:hover {
+  font-size: larger;
+  font-weight: bolder;
+}
+
+.pagination > .current {
+  background-color: #ADD2D8;
+  border-radius: 30px;
+}
+
+.pagination > .gap {
+  color: #ED4F33;
+}
+
+.pagination > span > a {
+  color: #ED4F33;
+}
