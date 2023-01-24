@@ -1,0 +1,37 @@
+<div class="row mt-1 pb-5 justify-content-center">
+  <div class="col-12">
+    <table class="table" id="member-index-table">
+      <% members.each do |member| %>
+        <tr class="align-middle">
+          <td class="link-dark">
+            <%= link_to member_path(member), class:"link-dark" do %>
+              <%= image_tag member.get_profile_image(80, 80), class:"img-thumbnail" %>
+              <%= member.member_name %>
+            <% end %>
+          </td>
+          <td><%= member.member_introduction %></td>
+          <td>
+            <%= link_to followings_member_follows_path(member), class:"text-dark" do %>
+              フォロー：<%= member.followings.count %>人<br>
+            <% end %>
+            <%= link_to followers_member_follows_path(member), class:"text-dark" do %>
+              フォロワー：<%= member.followers.count %>人
+            <% end %>
+          </td>
+          <td>
+            ゲームレビュー：<%= member.game_reviews.count %>件<br>
+            グッズレビュー：<%= member.goods_reviews.count %>件
+          </td>
+          <td>
+            <% entry_groups = member.groups - member.owner_groups %>
+            参加グループ：<%= entry_groups.count %><br>
+            オーナーグループ：<%= member.owner_groups.count %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="col-12 d-flex justify-content-center mt-2 mb-4">
+    <%= paginate members %>
+  </div>
+</div>

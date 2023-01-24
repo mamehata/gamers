@@ -1,8 +1,8 @@
 <script>
   document.addEventListener('turbolinks:load', function() {
-    let raty_elem = document.querySelector("#review");
-    raty_elem.innerHTML = "";
-    let raty_opt = {
+    let raty_elem_<%= game_review.id %> = document.querySelector("#game_review_display<%= game_review.id %>");
+    raty_elem_<%= game_review.id %>.innerHTML = "";
+    let raty_opt_<%= game_review.id %> = {
       size: 30,
       starOff: '<%= asset_path('star-off.png') %>',
       starOn: '<%= asset_path('star-on.png') %>',
@@ -15,8 +15,9 @@
         ['1/2 good', 'good'],
         ['1/2 gorgeous', 'gorgeous'],
       ],
-      scoreName: 'game_review[game_rating]',
+      readOnly: true,
+      score: '<%= game_review.game_rating %>'
     };
-    raty(raty_elem,raty_opt);
+    raty(raty_elem_<%= game_review.id %>,raty_opt_<%= game_review.id %>);
   });
 </script>

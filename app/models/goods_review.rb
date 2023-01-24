@@ -31,4 +31,8 @@ class GoodsReview < ApplicationRecord
   def self.search_goods_review(search_word)
     self.where('goods_name LIKE?', "%#{search_word}%")
   end
+
+  def self.search_goods_rating(search_word)
+    self.where(goods_rating: search_word)
+  end
 end

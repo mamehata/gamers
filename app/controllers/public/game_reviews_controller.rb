@@ -20,7 +20,17 @@ class Public::GameReviewsController < ApplicationController
   end
 
   def index
-    @game_reviews = GameReview.page(params[:page]).per(20)
+    if !params[:search_game_genre].empty?
+      @game_genre = Genre.search_game_genre(params[:search_game_genre])
+      @game_reviews = @game_genre.game_reviews.page(params[:page]).per(20)
+    elsif !params[:search_game_tag].empty?
+      @game_tag = GameTag.search_game_tag(params[:search_game_tag])
+      @game_reviews = @game_tag.game_reviews.page(params[:page]).per(20)
+    elsif !params[:search_game_rating].empty?
+      @game_reviews = GameReview.search_game_rating(params[:search_game_rating]).page(params[:page]).per(20)
+    else
+      @game_reviews = GameReview.page(params[:page]).per(20)
+    end
   end
 
   def create

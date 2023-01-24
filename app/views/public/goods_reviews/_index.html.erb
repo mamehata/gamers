@@ -1,0 +1,34 @@
+<div class="col-12 ms-5 ps-4 d-flex flex-row flex-wrap">
+  <% goods_reviews.each do |goods_review| %>
+    <div class="card col-2 m-3">
+      <div class="card-header">
+        <%= image_tag goods_review.member.get_profile_image(40, 40) %>
+        <%= goods_review.member.member_name %>
+      </div>
+
+      <div class="card-body">
+        <div class="card-text">
+          <div class="mb-1 text-nowrap overflow-hidden text-truncate">グッズネーム <%= goods_review.goods_name %></div>
+          <div class="mb-1 text-nowrap overflow-hidden text-truncate">概要 <%= goods_review.goods_summary %></div>
+          <div class="mb-1 text-nowrap overflow-hidden text-truncate">
+            <% goods_review.goods_tags.each do |goods_tag| %>
+              タグ <%= goods_tag.goods_tag_name %>
+            <% end %>
+          </div>
+          <div class="mb-1 text-nowrap overflow-hidden text-truncate">感想 <%= goods_review.goods_impression %></div>
+          <div class="mb-1 text-nowrap overflow-hidden text-truncate">￥ <%= goods_review.goods_price.to_s(:delimited) %></div>
+          <div>
+            評価 <div id="goods_review_display<%= goods_review.id %>"></div>
+            <%= render "public/goods_reviews/goods_review_display", goods_review: goods_review %>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <%= link_to "詳細へ", goods_review_path(goods_review), class:"link-dark" %>
+      </div>
+    </div>
+  <% end %>
+</div>
+<div class="col-12 d-flex justify-content-center mt-2 mb-4">
+    <%= paginate goods_reviews %>
+</div>

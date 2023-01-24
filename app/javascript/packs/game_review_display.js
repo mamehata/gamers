@@ -1,5 +1,6 @@
-  document.addEventListener('turbolinks:load', function() {
-    let raty_elem = document.querySelector("#review");
+document.addEventListener('turbolinks:load', function() {
+  for (i = 0; i < gon.review_ids.length; i++){
+    let raty_elem = document.querySelector("#review_display" + gon.review_ids[i]);
     raty_elem.innerHTML = "";
     let raty_opt = {
       size: 30,
@@ -14,7 +15,9 @@
         ['1/2 good', 'good'],
         ['1/2 gorgeous', 'gorgeous'],
       ],
-      scoreName: 'game_review[game_rating]',
+      readOnly: true,
+      score: gon.review_ratings[i]
     };
     raty(raty_elem,raty_opt);
-  });
+  }
+});

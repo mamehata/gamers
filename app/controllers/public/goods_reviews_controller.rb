@@ -18,13 +18,20 @@ class Public::GoodsReviewsController < ApplicationController
   end
 
   def index
-    @goods_reviews = GoodsReview.page(params[:page]).per(20)
+    if !params[:search_goods_tag].empty?
+      @goods_tag = GoodsTag.search_goods_tag(params[:search_goods_tag])
+      @goods_reviews = @goods_tag.goods_reviews.page(params[:page]).per(20)
+    elsif !params[:search_goods_rating].empty?
+      @goods_reviews = GoodsReview.search_goods_rating(params[:search_goods_rating]).page(params[:page]).per(20)
+    else
+      @goods_reviews = GoodsReview.page(params[:page]).per(20)
+    end
   end
 
   def create
     @goods_review = GoodsReview.new(goods_review_params.except(:goods_tag_name))
     @goods_review.member_id = current_member.id
-    goods_tags = params[:goods_review][:goods_tag_name].split(' ')
+    goods_tags = params[:goods_review][:goods_tag_name].split(/[\A[:space:]\z]/)
     if @goods_review.save
       @goods_review.save_tag(goods_tags)
       flash[:notice] = "レビューが投稿されました"
