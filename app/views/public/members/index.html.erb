@@ -28,7 +28,8 @@
               グッズレビュー：<%= member.goods_reviews.count %>件
             </td>
             <td>
-              参加グループ：<%= member.groups.count %><br>
+              <% entry_groups = member.groups - member.owner_groups %>
+              参加グループ：<%= entry_groups.count %><br>
               オーナーグループ：<%= member.owner_groups.count %>
             </td>
           </tr>

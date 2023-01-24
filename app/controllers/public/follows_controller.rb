@@ -1,4 +1,6 @@
 class Public::FollowsController < ApplicationController
+  before_action :authenticate_member!
+
   def followings
     @member = Member.find(params[:member_id])
     @followings = @member.followings

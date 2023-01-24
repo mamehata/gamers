@@ -1,6 +1,7 @@
 class Public::SearchsController < ApplicationController
   def search
     if !params[:search_member].empty?
+      authenticate_member!
       @members = Member.search_member(params[:search_member])
     elsif !params[:search_game_review].empty?
       @game_reviews = GameReview.search_game_review(params[:search_game_review])

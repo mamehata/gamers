@@ -1,11 +1,13 @@
 class Public::GroupsController < ApplicationController
-  before_action :group_member?, only: [:show]
+  before_action :authenticate_member!
+  before_action :group_member_confirm, except: [:create]
+  before_action :group_owner_confirm, only: [:update, :destroy]
 
   def show
     @group_room = GroupRoom.new
     @group = Group.find(params[:id])
-    @group_members = @group.members
-    @group_rooms = @group.group_rooms
+    @group_members = @group.members.page(params[:page]).per(10)
+    @group_rooms = @group.group_rooms.page(params[:page]).per(10)
     @group_chats = @group.group_chats
     if params[:group_chat_id].nil?
       @group_chat = GroupChat.new
@@ -58,10 +60,17 @@ class Public::GroupsController < ApplicationController
           .permit(:group_name, :group_introduction, :game_review_id, :group_owner_id)
   end
 
-  def group_member?
+  def group_member_confirm
     @group = Group.find(params[:id])
     unless GroupMember.exists?(member_id: current_member, group_id: @group)
       redirect_to member_path(current_member)
+    end
+  end
+
+  def group_owner_confirm
+    @group = Group.find(params[:id])
+    unless @group.group_owner_id == current_member.id
+      redirect_to group_path(@group)
     end
   end
 end

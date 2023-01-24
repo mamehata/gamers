@@ -69,4 +69,6 @@ gem 'net-imap'
 
 gem 'devise'
 
+gem 'devise-i18n'
+
 gem 'kaminari','~> 1.2.1'

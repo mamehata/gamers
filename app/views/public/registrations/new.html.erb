@@ -9,13 +9,15 @@
 
   <div class="col-9 mt-5 pb-5 ps-0">
     <div class="pb-5 border-bottom">
+      <div class="ms-5">
+        <%= render "public/shared/error_messages", resource: resource %>
+      </div>
       <div class="col-5 offset-3">
         <div>
           <p class="fs-2">会員登録</p>
         </div>
 
         <%= form_with model: @member, url: member_registration_path do |f| %>
-          <%= render "public/shared/error_messages", resource: resource %>
 
           <div class="field">
             <%= f.text_field :member_name, autofocus: true, autocomplete: "member_name", placeholder: "メンバーネーム", class:"form-control" %>

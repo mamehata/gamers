@@ -1,4 +1,7 @@
 class Public::GoodsReviewsController < ApplicationController
+  before_action :authenticate_member!, only: [:new, :create]
+  before_action :confirm_contributor, only: [:update, :destroy]
+
   def new
     @goods_review = GoodsReview.new
   end
@@ -47,5 +50,12 @@ class Public::GoodsReviewsController < ApplicationController
   def goods_review_params
     params.require(:goods_review)
           .permit(:goods_name, :goods_summary, :goods_impression, :goods_price, :goods_rating, :goods_tag_name)
+  end
+
+  def confirm_contributor
+    @goods_review = GoodsReview.find(params[:id])
+    if @goods_review.member_id != current_member.id
+      redirect_to goods_review_path(@goods_review)
+    end
   end
 end

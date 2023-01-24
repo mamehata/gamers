@@ -28,8 +28,6 @@ members = Member.create!(
 )
 
 
-
-
 game_reviews = GameReview.create!(
   [
     {game_title: '楽しいゲーム', game_summary: '楽しいゲームです。', game_impression: 'とても楽しかったです。', game_price: 6000, game_rating: 5, member_id: members.first.id, genre_id: genres[0].id},

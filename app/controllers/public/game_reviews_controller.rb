@@ -1,4 +1,7 @@
 class Public::GameReviewsController < ApplicationController
+  before_action :authenticate_member!, only: [:new, :create]
+  before_action :confirm_contributor, only: [:update, :destroy]
+
   def new
     @game_review = GameReview.new
     @genres = Genre.all
@@ -34,6 +37,10 @@ class Public::GameReviewsController < ApplicationController
     end
   end
 
+  def update
+
+  end
+
   def destroy
     @game_review = GameReview.find(params[:id])
     if @game_review.destroy
@@ -51,5 +58,12 @@ class Public::GameReviewsController < ApplicationController
   def game_review_params
     params.require(:game_review)
           .permit(:game_title, :game_summary, :game_impression, :game_price, :game_rating, :genre_id, :game_tag_name)
+  end
+
+  def confirm_contributor
+    @game_review = GameReview.find(params[:id])
+    if @game_review.member_id != current_member.id
+      redirect_to game_review_path(@game_review)
+    end
   end
 end
