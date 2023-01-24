@@ -14,6 +14,9 @@
             <% end %>
           </p>
         <% end %>
+        <div class="col-12 d-flex justify-content-center mt-2 mb-4">
+          <%= paginate @group_members %>
+        </div>
       </div>
     </div>
     <div class="col-12 border-bottom pb-4 d-flex justify-content-evenly">
@@ -107,6 +110,9 @@
             <% end %>
           </p>
         <% end %>
+        <div class="col-12 d-flex justify-content-center mt-2 mb-4">
+          <%= paginate @group_rooms %>
+        </div>
       </div>
     </div>
   </div>

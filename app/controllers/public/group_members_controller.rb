@@ -1,4 +1,6 @@
 class Public::GroupMembersController < ApplicationController
+  before_action :authenticate_member!
+
   def create
     @group = Group.find(params[:group_id])
     @group.members << current_member

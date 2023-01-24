@@ -1,4 +1,8 @@
 class Public::GroupRoomsController < ApplicationController
+  before_action :authenticate_member!
+  before_action :room_member_confirm, except: [:create]
+  before_action :room_owner_confirm, only: [:update, :destroy]
+
   def show
     @group_room = GroupRoom.find(params[:id])
     @room_members = @group_room.room_members
@@ -48,5 +52,21 @@ class Public::GroupRoomsController < ApplicationController
   def group_room_params
     params.require(:group_room)
           .permit(:room_name, :room_owner_id, :group_id)
+  end
+
+  private
+
+  def room_member_confirm
+    @group_room = GroupRoom.find(params[:id])
+    unless GroupMember.exists?(member_id: current_member, group_id: @group_room.group_id, group_room_id: @group_room)
+      redirect_to group_path(@group_room.group_id)
+    end
+  end
+
+  def room_owner_confirm
+    @group_room = GroupRoom.find(params[:id])
+    unless @group_room.room_owner_id == current_member.id
+      redirect_to group_path(@group_room.group_id)
+    end
   end
 end

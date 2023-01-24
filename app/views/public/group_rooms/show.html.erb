@@ -16,6 +16,9 @@
       </div>
     </div>
     <div class="col-12 border-bottom pb-4 d-flex justify-content-evenly">
+      <button class="actions col-5 mt-4 btn btn-secondary btn-lg">
+        <%= link_to "グループページへ", group_path(@group_room.group), method: :get, class:"fw-bold text-light" %>
+      </button>
       <% if @group_room.room_owner_id == current_member.id %>
         <button class="actions col-5 mt-4 btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#groupupdate">
           <a class="fw-bold text-light">ルーム編集</a>

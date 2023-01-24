@@ -1,4 +1,7 @@
 class Public::MembersController < ApplicationController
+  before_action :authenticate_member!
+  before_action :member_confirm, except: [:show, :index]
+
   def show
     @member = Member.find(params[:id])
     @groups = @member.groups.page(params[:page]).per(10)
@@ -22,8 +25,8 @@ class Public::MembersController < ApplicationController
       redirect_to request.referer
     else
       @member = Member.find(params[:id])
-      @groups = @member.groups
-      @game_reviews = @member.game_reviews
+      @groups = @member.groups.page(params[:page]).per(10)
+      @game_reviews = @member.game_reviews.page(params[:page]).per(5)
       render 'show'
     end
   end
@@ -42,5 +45,12 @@ class Public::MembersController < ApplicationController
   def member_params
     params.require(:member)
           .permit(:member_name, :member_introduction)
+  end
+
+  def member_confirm
+    @member = Member.find(params[:id])
+    unless @member.id == current_member
+      redirect_to member_path(current_member)
+    end
   end
 end

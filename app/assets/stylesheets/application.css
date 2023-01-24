@@ -19,17 +19,15 @@
   box-sizing: border-box;
 }
 
-.pagination > span {
-  padding: 5px 13px;
-  color: #2E2963;
-}
-
 .pagination > span > a:hover {
-  font-size: larger;
   font-weight: bolder;
 }
 
 .pagination > .current {
+  position: relative;
+  bottom: 5px;
+  padding: 5px 13px;
+  color: #2E2963;
   background-color: #ADD2D8;
   border-radius: 30px;
 }
@@ -39,5 +37,12 @@
 }
 
 .pagination > span > a {
+  padding: 5px 13px;
   color: #ED4F33;
 }
+
+.pagination > span > a:hover {
+  background-color: #9F87BF;
+  border-radius: 30px;
+}
+

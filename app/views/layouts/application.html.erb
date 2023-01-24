@@ -22,6 +22,11 @@
     <% else %>
       <%= render "layouts/header" %>
     <% end %>
+    <% if !notice.nil? %>
+      <p class="notice text-center pt-4"><%= notice %></p>
+    <% elsif !alert.nil? %>
+      <p class="alert text-center m-0"><%= alert %></p>
+    <% end %>
     <%= yield %>
   </body>
 </html>
