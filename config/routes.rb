@@ -38,7 +38,14 @@ Rails.application.routes.draw do
       resources :game_comments, only: [:create, :update, :destroy]
     end
     resources :groups, except: [:new, :index] do
-      resources :group_members, only: [:create, :destroy]
+      resources :group_members, only: [:create, :destroy] do
+        collection do
+          post "room_create"
+        end
+        member do
+          delete "room_destroy"
+        end
+      end
       resources :group_chats, only: [:create, :update, :destroy]
     end
     resources :group_rooms, only: [:show, :create, :update, :destroy] do

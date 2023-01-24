@@ -57,19 +57,7 @@
                       </div>
 
                       <div class="mt-3">
-                        <%= f.collection_select :search_game_genre, Genre.all, :genre_name, :genre_name, {prompt: "ジャンルを選択してください"}, class:"form-select" %>
-                      </div>
-
-                      <div class="mt-3">
                         <%= f.search_field :search_goods_review, placeholder: "グッズ名", class:"form-control" %>
-                      </div>
-
-                      <div class="mt-3">
-                        <%= f.collection_select :search_game_tag, GameTag.all, :game_tag_name, :game_tag_name, {prompt: "ゲームタグを選択してください"}, class:"form-select" %>
-                      </div>
-
-                      <div class="mt-3">
-                        <%= f.collection_select :search_goods_tag, GoodsTag.all, :goods_tag_name, :goods_tag_name, {prompt: "グッズタグを選択してください"}, class:"form-select" %>
                       </div>
 
                     <div class="modal-footer">

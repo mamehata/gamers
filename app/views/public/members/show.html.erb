@@ -109,77 +109,11 @@
 </div>
 
 <div class="row mt-5 px-5 justify-content-center border-bottom">
-  <div class="col-12 ms-5 ps-4 d-flex flex-row flex-wrap">
-    <% if @game_reviews == nil %>
-      <% @goods_reviews.each do |goods_review| %>
-        <div class="card col-2 m-3">
-          <div class="card-header">
-            <%= image_tag goods_review.member.get_profile_image(40, 40) %>
-            <%= goods_review.member.member_name %>
-          </div>
-
-          <div class="card-body">
-            <div class="card-text">
-              <div class="mb-1 text-nowrap overflow-hidden text-truncate">タイトル <%= goods_review.goods_name %></div>
-              <div class="mb-1 text-nowrap overflow-hidden text-truncate">概要 <%= goods_review.goods_summary %></div>
-              <div class="mb-1 text-nowrap overflow-hidden text-truncate">
-                <% goods_review.goods_tags.each do |goods_tag| %>
-                  タグ <%= goods_tag.goods_tag_name %>
-                <% end %>
-              </div>
-              <div class="mb-1 text-nowrap overflow-hidden text-truncate">感想 <%= goods_review.goods_impression %></div>
-              <div class="mb-1 text-nowrap overflow-hidden text-truncate">￥ <%= goods_review.goods_price.to_s(:delimited) %></div>
-              <div>
-                評価 <div id="review_display<%= goods_review.id %>"></div>
-                <%= render "public/goods_reviews/review_display", goods_review: goods_review %>
-              </div>
-            </div>
-          </div>
-          <div class="card-footer">
-            <%= link_to "詳細へ", goods_review_path(goods_review), class:"link-dark" %>
-          </div>
-        </div>
-      <% end %>
-    <% elsif @goods_reviews == nil %>
-      <% @game_reviews.each do |game_review| %>
-        <div class="card col-2 m-3">
-          <div class="card-header">
-            <%= image_tag game_review.member.get_profile_image(40, 40) %>
-            <%= game_review.member.member_name %>
-          </div>
-
-          <div class="card-body">
-            <div class="card-text">
-              <div class="mb-1 text-nowrap overflow-hidden text-truncate">タイトル <%= game_review.game_title %></div>
-              <div class="mb-1 text-nowrap overflow-hidden text-truncate">概要 <%= game_review.game_summary %></div>
-              <div class="mb-1 text-nowrap overflow-hidden text-truncate">ジャンル <%= game_review.genre.genre_name %></div>
-              <div class="mb-1 text-nowrap overflow-hidden text-truncate">
-                <% game_review.game_tags.each do |game_tag| %>
-                  タグ <%= game_tag.game_tag_name %>
-                <% end %>
-              </div>
-              <div class="mb-1 text-nowrap overflow-hidden text-truncate">感想 <%= game_review.game_impression %></div>
-              <div class="mb-1 text-nowrap overflow-hidden text-truncate">￥ <%= game_review.game_price.to_s(:delimited) %></div>
-              <div>
-                評価 <div id="review_display<%= game_review.id %>"></div>
-                <%= render "public/game_reviews/review_display", game_review: game_review %>
-              </div>
-            </div>
-          </div>
-          <div class="card-footer">
-            <%= link_to "詳細へ", game_review_path(game_review), class:"link-dark" %>
-          </div>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
-  <div class="col-12 d-flex justify-content-center mt-2 mb-4">
-    <% if @game_reviews == nil %>
-      <%= paginate @goods_reviews %>
-    <% elsif @goods_reviews == nil %>
-      <%= paginate @game_reviews %>
-    <% end %>
-  </div>
+  <% if @game_reviews != nil %>
+    <%= render "public/game_reviews/index", game_reviews: @game_reviews %>
+  <% elsif @goods_reviews != nil %>
+    <%= render "public/goods_reviews/index", goods_reviews: @goods_reviews %>
+  <% end %>
 </div>
 
 <div class="row mt-4 pb-4 border-bottom">

@@ -41,8 +41,8 @@
             <div class="mb-1 text-nowrap overflow-hidden text-truncate">感想 <%= game_review.game_impression %></div>
             <div class="mb-1 text-nowrap overflow-hidden text-truncate">￥ <%= game_review.game_price.to_s(:delimited) %></div>
             <div>
-              評価 <div id="review_display<%= game_review.id %>"></div>
-              <%= render "public/game_reviews/review_display", game_review: game_review %>
+              評価 <div id="game_review_display<%= game_review.id %>"></div>
+              <%= render "public/game_reviews/game_review_display", game_review: game_review %>
             </div>
           </div>
         </div>
@@ -79,8 +79,8 @@
             <div class="mb-1 text-nowrap overflow-hidden text-truncate">感想 <%= goods_review.goods_impression %></div>
             <div class="mb-1 text-nowrap overflow-hidden text-truncate">￥ <%= goods_review.goods_price.to_s(:delimited) %></div>
             <div>
-              評価 <div id="review_display<%= goods_review.id %>"></div>
-              <%= render "public/goods_reviews/review_display", goods_review: goods_review %>
+              評価 <div id="goods_review_display<%= goods_review.id %>"></div>
+              <%= render "public/goods_reviews/goods_review_display", goods_review: goods_review %>
             </div>
           </div>
         </div>

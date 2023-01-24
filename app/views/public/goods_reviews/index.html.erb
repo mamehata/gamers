@@ -1,52 +1,53 @@
 <div class="row mt-4">
   <h2 class="text-center">グッズレビュー一覧</h2>
-  <div class="col-12 border-bottom">
+  <div class="col-12 d-flex flex-row border-bottom id="sab-nav-link"">
     <a class="ms-5 ms-4">
-      <%= link_to game_reviews_path do %>
+      <%= link_to game_reviews_path class:"link-color" do %>
         ゲームレビュー一覧
       <% end %>
     </a>
     <a class="ms-3">
-      <%= link_to goods_reviews_path do %>
+      <%= link_to goods_reviews_path class:"link-color" do %>
         グッズレビュー一覧
       <% end %>
     </a>
-  </div>
-</div>
-
-<div class="row mt-5 px-5 justify-content-center border-bottom">
-  <div class="col-12 ms-5 ps-4 d-flex flex-row flex-wrap">
-    <% @goods_reviews.each do |goods_review| %>
-      <div class="card col-2 m-3">
-        <div class="card-header">
-          <%= image_tag goods_review.member.get_profile_image(40, 40) %>
-          <%= goods_review.member.member_name %>
-        </div>
-
-        <div class="card-body">
-          <div class="card-text">
-            <div class="mb-1 text-nowrap overflow-hidden text-truncate">グッズネーム <%= goods_review.goods_name %></div>
-            <div class="mb-1 text-nowrap overflow-hidden text-truncate">概要 <%= goods_review.goods_summary %></div>
-            <div class="mb-1 text-nowrap overflow-hidden text-truncate">
-              <% goods_review.goods_tags.each do |goods_tag| %>
-                タグ <%= goods_tag.goods_tag_name %>
-              <% end %>
+    <div class="link-dark" id ="filtering-layout">
+      <button class="actions btn btn-sm" data-bs-toggle="modal" data-bs-target="#filtering">
+        <i class="fa-solid fa-filter"></i>
+      </button>
+      <div class="modal fade" id="filtering">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">絞り込み</h5>
+              <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="mb-1 text-nowrap overflow-hidden text-truncate">感想 <%= goods_review.goods_impression %></div>
-            <div class="mb-1 text-nowrap overflow-hidden text-truncate">￥ <%= goods_review.goods_price.to_s(:delimited) %></div>
-            <div>
-              評価 <div id="review_display<%= goods_review.id %>"></div>
-              <%= render "review_display", goods_review: goods_review %>
-            </div>
+            <%= form_with url: searchs_path, method: :get do  |f| %>
+              <div class="modal-body">
+                <div class="mt-3">
+                  <%= f.collection_select :search_goods_tag, GoodsTag.all, :goods_tag_name, :goods_tag_name, {prompt: "グッズタグを選択してください"}, class:"form-select" %>
+                </div>
+
+                <div class="mt-3">
+                  <%= f.select :search_goods_rating, [["評価0.5", 0.5], ["評価１", 1], ["評価1.5", 1.5], ["評価2", 2], ["評価2.5", 2.5], ["評価3", 3], ["評価3.5", 3.5], ["評価4", 4], ["評価4.5", 4.5], ["評価5", 5]], {prompt: "評価を選択してください"}, class:"form-select" %>
+                </div>
+
+              <div class="modal-footer">
+                <div class="me-auto">
+                  <%= f.submit "絞り込み", class:"btn btn-success" %>
+                </div>
+
+                <div>
+                  <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            <% end %>
           </div>
         </div>
-        <div class="card-footer">
-          <%= link_to "詳細へ", goods_review_path(goods_review), class:"link-dark" %>
-        </div>
       </div>
-    <% end %>
+    </div>
   </div>
-  <div class="col-12 d-flex justify-content-center mt-2 mb-4">
-      <%= paginate @goods_reviews %>
-  </div>
+</div>
+<div class="row mt-5 px-5 justify-content-center border-bottom">
+  <%= render "index", goods_reviews: @goods_reviews %>
 </div>

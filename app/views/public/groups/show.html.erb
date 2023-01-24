@@ -105,7 +105,7 @@
         <h6 class="mt-2">グループルーム一覧</h6>
         <% @group_rooms.each do |group_room| %>
           <p class="mt-2">
-            <%= link_to group_room_path(group_room), class:"text-dark" do %>
+            <%= link_to room_create_group_group_members_path(@group, id: group_room), method: :post, class:"text-dark" do %>
               <%= group_room.room_name %>
             <% end %>
           </p>
