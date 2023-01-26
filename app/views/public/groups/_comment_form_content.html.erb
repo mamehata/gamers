@@ -1,18 +1,38 @@
 <div class="mt-4 input-group d-flex justify-content-center">
   <div class="col-10 text-wrap">
-    <%= f.text_area :room_chat, placeholder: "コメントを送信", class:"form-control form-control-sm" %>
+    <% if !@room_chat.nil? %>
+      <%= f.text_area :room_chat, placeholder: "コメントを送信", class:"form-control form-control-sm" %>
+    <% elsif !@group_chat.nil? %>
+      <%= f.text_area :group_chat, placeholder: "コメントを送信", class:"form-control form-control-sm" %>
+    <% elsif !@game_comment.nil? %>
+      <%= f.text_area :game_comment, placeholder: "コメントを送信", class:"form-control form-control-sm" %>
+    <% elsif !@goods_comment.nil? %>
+      <%= f.text_area :goods_comment, placeholder: "コメントを送信", class:"form-control form-control-sm" %>
+    <% end %>
   </div>
 
   <% if comment.id.nil? %>
     <div>
-      <%= button_tag method: :post do %>
-        <i class="fa-solid fa-square-caret-up"></i>
+      <% if !@room_chat.nil? || !@group_chat.nil? %>
+        <%= button_tag method: :post do %>
+          <i class="fa-solid fa-square-caret-up"></i>
+        <% end %>
+      <% elsif !@game_comment.nil? || !@goods_comment.nil? %>
+        <%= button_tag method: :post do %>
+          <i class="fa-solid fa-square-caret-down"></i>
+        <% end %>
       <% end %>
     </div>
   <% else %>
     <div>
-      <%= button_tag method: :patch do %>
-        <i class="fa-solid fa-square-caret-up"></i>
+      <% if !@room_chat.nil? || !@group_chat.nil? %>
+        <%= button_tag method: :patch do %>
+          <i class="fa-solid fa-square-caret-up"></i>
+        <% end %>
+      <% elsif !@game_comment.nil? || !@goods_comment.nil? %>
+        <%= button_tag method: :patch do %>
+          <i class="fa-solid fa-square-caret-down"></i>
+        <% end %>
       <% end %>
     </div>
   <% end %>
@@ -20,6 +40,14 @@
 
 <% unless comment.id.nil? %>
   <div class="col-3 offset-1">
-    <%= link_to "キャンセル", group_room_path(comment.group_room), class:"link-dark" %>
+    <% if !@room_chat.nil? %>
+      <%= link_to "キャンセル", group_room_path(comment.group_room), class:"link-dark" %>
+    <% elsif !@group_chat.nil? %>
+      <%= link_to "キャンセル", group_path(comment.group), class:"link-dark" %>
+    <% elsif !@game_comment.nil? %>
+      <%= link_to "キャンセル", game_review_path(comment.game_review), class:"link-dark" %>
+    <% elsif !@goods_comment.nil? %>
+      <%= link_to "キャンセル", goods_review_path(comment.goods_review), class:"link-dark" %>
+    <% end %>
   </div>
 <% end %>

@@ -126,33 +126,7 @@
           </table>
         </div>
         <div>
-          <%= form_with model: @group_chat, url: @group_chat.id.nil? ? group_group_chats_path(group_id: @group) : group_group_chat_path(@group_chat, group_id: @group) do |f| %>
-            <div class="mt-4 input-group d-flex justify-content-center">
-              <div class="col-10 text-wrap">
-                <%= f.text_area :group_chat, placeholder: "コメントを送信", class:"form-control form-control-sm" %>
-              </div>
-
-              <% if @group_chat.id.nil? %>
-                <div>
-                  <%= button_tag method: :post do %>
-                    <i class="fa-solid fa-square-caret-up"></i>
-                  <% end %>
-                </div>
-              <% else %>
-                <div>
-                  <%= button_tag method: :patch do %>
-                    <i class="fa-solid fa-square-caret-up"></i>
-                  <% end %>
-                </div>
-              <% end %>
-            </div>
-
-            <% unless @group_chat.id.nil? %>
-              <div class="col-3 offset-1">
-                <%= link_to "キャンセル", group_path(@group), class:"link-dark" %>
-              </div>
-            <% end %>
-          <% end %>
+          <%= render "public/groups/comment_form", comment: @group_chat %>
         </div>
       </div>
     </div>

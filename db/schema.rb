@@ -194,14 +194,8 @@ ActiveRecord::Schema.define(version: 2023_01_14_065155) do
   create_table "room_chats", force: :cascade do |t|
     t.integer "group_room_id", null: false
     t.integer "group_member_id", null: false
+    t.integer "member_id", null: false
     t.text "room_chat", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "room_members", force: :cascade do |t|
-    t.integer "group_member_id", null: false
-    t.integer "group_room_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

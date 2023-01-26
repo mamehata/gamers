@@ -18,10 +18,10 @@ class Public::GoodsReviewsController < ApplicationController
   end
 
   def index
-    if !params[:search_goods_tag].empty?
+    if params[:search_goods_tag].present?
       @goods_tag = GoodsTag.search_goods_tag(params[:search_goods_tag])
       @goods_reviews = @goods_tag.goods_reviews.page(params[:page]).per(20)
-    elsif !params[:search_goods_rating].empty?
+    elsif params[:search_goods_rating].present?
       @goods_reviews = GoodsReview.search_goods_rating(params[:search_goods_rating]).page(params[:page]).per(20)
     else
       @goods_reviews = GoodsReview.page(params[:page]).per(20)

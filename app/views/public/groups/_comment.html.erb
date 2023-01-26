@@ -1,19 +1,11 @@
 <% comments.each do |comment| %>
   <tr>
     <td id="comment-profile-image">
-      <% if !@room_chats.nil? %>
-        <%= image_tag comment.group_member.member.get_profile_image(50, 50) %>
-      <% else %>
-        <%= image_tag comment.member.get_profile_image(50, 50) %>
-      <% end %>
+      <%= image_tag comment.member.get_profile_image(50, 50) %>
     </td>
 
     <td class="text-break" id="comment-body">
-      <% if !@room_chats.nil? %>
-        <%= comment.group_member.member.member_name %>
-      <% else %>
-        <%= comment.member.member_name %>
-      <% end %>
+      <%= comment.member.member_name %>
 
       <%= l comment.created_at, format: :long %><br>
 

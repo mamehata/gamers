@@ -1,17 +1,17 @@
-<% if !@group_room.nil? %>
+<% if !@room_chat.nil? %>
   <%= form_with model: comment, url: comment.id.nil? ? group_room_room_chats_path(group_room_id: @group_room) : group_room_room_chat_path(comment, group_room_id: @group_room) do |f| %>
-    <%= render "public/groups/comment_form_content", comment: comment %>
+    <%= render "public/groups/comment_form_content", comment: comment, f: f %>
   <% end %>
-<% elsif !@group.nil? %>
+<% elsif !@group_chat.nil? %>
   <%= form_with model: comment, url: comment.id.nil? ? group_group_chats_path(group_id: @group) : group_group_chat_path(comment, group_id: @group) do |f| %>
-    <%= render "public/groups/comment_form_content", comment: comment %>
+    <%= render "public/groups/comment_form_content", comment: comment, f: f %>
   <% end %>
-<% elsif !@goods_review.nil? %>
-  <%= form_with model: comment, url: comment.id.nil? ? game_review_game_comments_path(game_review_id: @goods_review) : game_review_game_comment_path(comment, game_review_id: @goods_review) do |f| %>
-    <%= render "public/groups/comment_form_content", comment: comment %>
-  <% end %>
-<% elsif !@game_review.nil? %>
+<% elsif !@game_comment.nil? %>
   <%= form_with model: comment, url: comment.id.nil? ? game_review_game_comments_path(game_review_id: @game_review) : game_review_game_comment_path(comment, game_review_id: @game_review) do |f| %>
-      <%= render "public/groups/comment_form_content", comment: comment %>
+    <%= render "public/groups/comment_form_content", comment: comment, f: f %>
+  <% end %>
+<% elsif !@goods_comment.nil? %>
+  <%= form_with model: comment, url: comment.id.nil? ? game_review_game_comments_path(game_review_id: @goods_review) : game_review_game_comment_path(comment, game_review_id: @goods_review) do |f| %>
+      <%= render "public/groups/comment_form_content", comment: comment, f: f %>
   <% end %>
 <% end %>

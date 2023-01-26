@@ -83,41 +83,10 @@
   </div>
 </div>
 
-<div class="row mt-5 justify-content-center">
+<div class="row justify-content-center">
   <div class="col-7 pb-5 border-bottom">
-    <% unless @goods_comment.id.nil? %>
-      <%= form_with model: @goods_comment, url: goods_review_goods_comment_path(@goods_comment, goods_review_id: @goods_review) do |f| %>
-        <div class="input-group d-flex justify-content-center">
-          <div class="col-10 text-wrap">
-            <%= f.text_field :goods_comment, placeholder: "コメントを送信", class:"form-control form-control-sm" %>
-          </div>
+    <%= render "public/groups/comment_form", comment: @goods_comment %>
 
-          <div>
-            <%= button_tag method: :patch do %>
-              <i class="fa-solid fa-square-caret-down"></i>
-            <% end %>
-          </div>
-        </div>
-
-        <div class="col-3 offset-1">
-          <%= link_to "キャンセル", goods_review_path(@goods_review), class:"link-dark" %>
-        </div>
-      <% end %>
-    <% else %>
-      <%= form_with model: @goods_comment, url: goods_review_goods_comments_path(goods_review_id: @goods_review) do |f| %>
-        <div class="input-group d-flex justify-content-center">
-          <div class="col-10 text-wrap">
-            <%= f.text_field :goods_comment, placeholder: "コメントを送信", class:"form-control form-control-sm" %>
-          </div>
-
-          <div>
-            <%= button_tag method: :post do %>
-              <i class="fa-solid fa-square-caret-down"></i>
-            <% end %>
-          </div>
-        </div>
-      <% end %>
-    <% end %>
     <table class="mt-3 table table-borderless">
       <%= render "public/groups/comment", comments: @goods_comments %>
     </table>

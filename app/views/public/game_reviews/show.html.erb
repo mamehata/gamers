@@ -149,35 +149,9 @@
   </div>
 </div>
 
-<div class="row mt-5 justify-content-center">
+<div class="row justify-content-center">
   <div class="col-7 pb-5 border-bottom">
-    <%= form_with model: @game_comment, url: @game_comment.id.nil? ? game_review_game_comments_path(game_review_id: @game_review) : game_review_game_comment_path(@game_comment, game_review_id: @game_review) do |f| %>
-      <div class="input-group d-flex justify-content-center">
-        <div class="col-10 text-wrap">
-          <%= f.text_field :game_comment, placeholder: "コメントを送信", class:"form-control form-control-sm" %>
-        </div>
-
-        <% if @game_comment.id.nil? %>
-          <div>
-            <%= button_tag method: :post do %>
-              <i class="fa-solid fa-square-caret-down"></i>
-            <% end %>
-          </div>
-        <% else %>
-          <div>
-            <%= button_tag method: :patch do %>
-              <i class="fa-solid fa-square-caret-down"></i>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-
-      <% unless @game_comment.id.nil? %>
-        <div class="col-3 offset-1">
-          <%= link_to "キャンセル", game_review_path(@game_review), class:"link-dark" %>
-        </div>
-      <% end %>
-    <% end %>
+    <%= render "public/groups/comment_form", comment: @game_comment %>
 
     <table class="mt-3 table table-borderless">
       <%= render "public/groups/comment", comments: @game_comments %>
