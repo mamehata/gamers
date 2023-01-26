@@ -19,9 +19,13 @@ class Public::GoodsReviewsController < ApplicationController
 
   def index
     if params[:search_goods_tag].present?
+      @source = "タグ"
+      @word = params[:search_goods_tag]
       @goods_tag = GoodsTag.search_goods_tag(params[:search_goods_tag])
       @goods_reviews = @goods_tag.goods_reviews.page(params[:page]).per(20)
     elsif params[:search_goods_rating].present?
+      @source = "評価"
+      @word = params[:search_goods_rating]
       @goods_reviews = GoodsReview.search_goods_rating(params[:search_goods_rating]).page(params[:page]).per(20)
     else
       @goods_reviews = GoodsReview.page(params[:page]).per(20)
@@ -31,7 +35,7 @@ class Public::GoodsReviewsController < ApplicationController
   def create
     @goods_review = GoodsReview.new(goods_review_params.except(:goods_tag_name))
     @goods_review.member_id = current_member.id
-    goods_tags = params[:goods_review][:goods_tag_name].split(/[\A[:space:]\z]/)
+    goods_tags = params[:goods_review][:goods_tag_name].split(/\A[[:space:]]\z/)
     if @goods_review.save
       @goods_review.save_tag(goods_tags)
       flash[:notice] = "レビューが投稿されました"

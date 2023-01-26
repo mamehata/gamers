@@ -21,12 +21,18 @@ class Public::GameReviewsController < ApplicationController
 
   def index
     if params[:search_game_genre].present?
+      @source = "ジャンル"
+      @word = params[:search_game_genre]
       @game_genre = Genre.search_game_genre(params[:search_game_genre])
       @game_reviews = @game_genre.game_reviews.page(params[:page]).per(20)
     elsif params[:search_game_tag].present?
+      @source = "タグ"
+      @word = params[:search_game_tag]
       @game_tag = GameTag.search_game_tag(params[:search_game_tag])
       @game_reviews = @game_tag.game_reviews.page(params[:page]).per(20)
     elsif params[:search_game_rating].present?
+      @source = "評価"
+      @word = params[:search_game_rating]
       @game_reviews = GameReview.search_game_rating(params[:search_game_rating]).page(params[:page]).per(20)
     else
       @game_reviews = GameReview.page(params[:page]).per(20)
@@ -36,7 +42,7 @@ class Public::GameReviewsController < ApplicationController
   def create
     @game_review = GameReview.new(game_review_params.except(:game_tag_name))
     @game_review.member_id = current_member.id
-    game_tags = params[:game_review][:game_tag_name].split(/[\A[:space:]\z]/)
+    game_tags = params[:game_review][:game_tag_name].split(/\A[[:space:]]\z/)
     if @game_review.save
       @game_review.save_tag(game_tags)
       flash[:notice] = "レビューが投稿されました"

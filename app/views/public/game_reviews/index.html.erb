@@ -1,5 +1,11 @@
 <div class="row mt-4">
-  <h2 class="text-center">ゲームレビュー一覧</h2>
+  <h2 class="text-center">
+    <% if @word.nil? %>
+      ゲームレビュー一覧
+    <% else %>
+      <%= @source %>が<%= @word %>のゲームレビュー一覧
+    <% end %>
+  </h2>
   <div class="col-12 d-flex flex-row border-bottom" id="sab-nav-link">
     <a class="ms-5 ms-4">
       <%= link_to game_reviews_path do %>
@@ -52,6 +58,16 @@
     </div>
   </div>
 </div>
-<div class="row mt-5 px-5 justify-content-center border-bottom">
-  <%= render "index", game_reviews: @game_reviews %>
+<div class="row mt-5 pb-5 px-5 justify-content-center border-bottom">
+  <% if @game_reviews.present? %>
+    <%= render "index", game_reviews: @game_reviews %>
+  <% else %>
+    <h6 class="text-center">
+      <% if @word.nil? %>
+        ゲームレビューは投稿されていません。
+      <% else %>
+        <%= @source %>が<%= @word %>のゲームレビューはありません。
+      <% end %>
+    </h6>
+  <% end %>
 </div>
