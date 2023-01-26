@@ -9,6 +9,14 @@
         <%= image_tag @member.get_profile_image(150, 150), class:"img-thumbnail", id:"profile-image" %>
       </div>
       <div class="col-4" id="table">
+        <% if @member.errors.any? %>
+          <%= @member.errors.count %>件のエラーが発生しました
+          <ul>
+            <% @member.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
         <table class="table table-borderless">
           <tr>
             <th>メンバーネーム</th>
@@ -110,9 +118,17 @@
 
 <div class="row mt-5 px-5 justify-content-center border-bottom">
   <% if @game_reviews != nil %>
-    <%= render "public/game_reviews/index", game_reviews: @game_reviews %>
+    <% if @game_reviews.present? %>
+      <%= render "public/game_reviews/index", game_reviews: @game_reviews %>
+    <% else %>
+      <h6 class="text-center pb-5">ゲームレビューを投稿していません。</h6>
+    <% end %>
   <% elsif @goods_reviews != nil %>
-    <%= render "public/goods_reviews/index", goods_reviews: @goods_reviews %>
+    <% if @goods_reviews.present? %>
+      <%= render "public/goods_reviews/index", goods_reviews: @goods_reviews %>
+    <% else %>
+      <h6 class="text-center pb-5">グッズレビューを投稿していません。</h6>
+    <% end %>
   <% end %>
 </div>
 
@@ -123,33 +139,37 @@
 <div class="container">
   <div class="row mt-5 pb-5 justify-content-center">
     <div class="col-12">
-      <table class="table" id="member-group-table">
-        <thead>
-          <tr>
-            <th>グループネーム</th>
-            <th>ゲームタイトル</th>
-            <th>オーナー</th>
-            <th>メンバー数</th>
-            <th>紹介文</th>
-            <th></th>
-          </tr>
-        </thead>
-        <% @groups.each do |group| %>
-          <body>
-            <tr class="align-middle">
-              <td><%= group.group_name %></td>
-              <td><%= group.game_review.game_title %></td>
-              <% group_owner = Member.find_by(id: group.group_owner_id) %>
-              <td><%= group_owner.member_name %></td>
-              <td><%= group.members.count %></td>
-              <td><%= group.group_introduction %></td>
-              <td>
-                <%= link_to "グループページへ", group_path(group), class:"text-dark" %>
-              </td>
+      <% if @groups.present? %>
+        <table class="table" id="member-group-table">
+          <thead>
+            <tr>
+              <th>グループネーム</th>
+              <th>ゲームタイトル</th>
+              <th>オーナー</th>
+              <th>メンバー数</th>
+              <th>紹介文</th>
+              <th></th>
             </tr>
-          </body>
-        <% end %>
-      </table>
+          </thead>
+          <% @groups.each do |group| %>
+            <body>
+              <tr class="align-middle">
+                <td><%= group.group_name %></td>
+                <td><%= group.game_review.game_title %></td>
+                <% group_owner = Member.find_by(id: group.group_owner_id) %>
+                <td><%= group_owner.member_name %></td>
+                <td><%= group.members.count %></td>
+                <td><%= group.group_introduction %></td>
+                <td>
+                  <%= link_to "グループページへ", group_path(group), class:"text-dark" %>
+                </td>
+              </tr>
+            </body>
+          <% end %>
+        </table>
+      <% else %>
+        <h6 class="text-center">グループに参加していません。</h6>
+      <% end %>
     </div>
     <div class="col-12 d-flex justify-content-center mt-2 mb-4">
       <%= paginate @groups %>

@@ -7,7 +7,7 @@ class Public::RoomChatsController < ApplicationController
     if @room_chat.save
       redirect_to request.referer
     else
-      redirect_to group_room_path(@room_chat.group)
+      redirect_to group_room_path(@room_chat.group_room_id)
     end
   end
 
@@ -20,7 +20,7 @@ class Public::RoomChatsController < ApplicationController
   def destroy
     @room_chat = RoomChat.find(params[:id])
     @room_chat.destroy
-    redirect_to request.referer
+    redirect_to group_room_path(@room_chat.group_room_id)
   end
 
   private
@@ -28,7 +28,7 @@ class Public::RoomChatsController < ApplicationController
   def room_chat_params
     params.require(:room_chat)
           .permit(:room_chat)
-          .merge(group_member_id: current_member.id, group_room_id: params[:group_room_id])
+          .merge(member_id: current_member.id, group_room_id: params[:group_room_id], group_member_id: GroupMember.find_by(group_id: GroupRoom.find(params[:group_room_id]).group.id, member_id: current_member.id).id)
   end
 
   def confirm_contributor

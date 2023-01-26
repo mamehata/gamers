@@ -16,36 +16,8 @@
 
 <div class="row mt-5 px-5 justify-content-center border-bottom">
   <div class="col-12 ms-5 ps-4 d-flex flex-row flex-wrap">
-    <% if @like_goods_reviews.nil? %>
-      <% @like_goods_reviews.each do |like_goods_review| %>
-        <div class="card col-2 m-3">
-          <div class="card-header">
-            <%= image_tag like_goods_review.member.get_profile_image(40, 40) %>
-            <%= like_goods_review.member.member_name %>
-          </div>
-
-          <div class="card-body">
-            <div class="card-text">
-              <div class="mb-1 text-nowrap overflow-hidden text-truncate">グッズネーム <%= like_goods_review.goods_name %></div>
-              <div class="mb-1 text-nowrap overflow-hidden text-truncate">概要 <%= like_goods_review.goods_summary %></div>
-              <div class="mb-1 text-nowrap overflow-hidden text-truncate">
-                <% like_goods_review.goods_tags.each do |goods_tag| %>
-                  タグ <%= goods_tag.goods_tag_name %>
-                <% end %>
-              </div>
-              <div class="mb-1 text-nowrap overflow-hidden text-truncate">感想 <%= like_goods_review.goods_impression %></div>
-              <div class="mb-1 text-nowrap overflow-hidden text-truncate">￥ <%= like_goods_review.goods_price.to_s(:delimited) %></div>
-              <div>
-                評価 <div id="review_display<%= like_goods_review.id %>"></div>
-                <%= render "public/goods_reviews/review_display", goods_review: like_goods_review %>
-              </div>
-            </div>
-          </div>
-          <div class="card-footer">
-            <%= link_to "詳細へ", goods_review_path(goods_review), class:"link-dark" %>
-          </div>
-        </div>
-      <% end %>
+    <% if @like_goods_reviews.present? %>
+      <%= render "public/goods_reviews/index", goods_reviews: @like_goods_reviews %>
     <% else %>
       <div class="col-12 pb-5">
         <h6 class="text-center">いいねしたグッズレビューーはありません。</h6>

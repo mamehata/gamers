@@ -7,6 +7,6 @@ class Group < ApplicationRecord
   belongs_to :game_review
   belongs_to :group_owner, class_name: 'Member', foreign_key: :group_owner_id
 
-  validates  :group_owner_id, :group_name, :group_introduction, :game_review_id, presence: true
-  validates  :game_review_id, uniqueness: true
+  validates :group_name, presence: true
+  validates :game_review_id, uniqueness: true
 end

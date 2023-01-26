@@ -16,36 +16,8 @@
 
 <div class="row mt-5 px-5 justify-content-center border-bottom">
   <div class="col-12 ms-5 ps-4 d-flex flex-row flex-wrap">
-    <% if !@like_game_reviews.nil? %>
-      <% @like_game_reviews.each do |like_game_review| %>
-        <div class="card col-2 m-3">
-          <div class="card-header">
-            <%= image_tag like_game_review.member.get_profile_image(40, 40) %>
-            <%= like_game_review.member.member_name %>
-          </div>
-
-          <div class="card-body">
-            <div class="card-text">
-              <div class="mb-1 text-nowrap overflow-hidden text-truncate">タイトル <%= like_game_review.game_title %></div>
-              <div class="mb-1 text-nowrap overflow-hidden text-truncate">概要 <%= like_game_review.game_summary %></div>
-              <div class="mb-1 text-nowrap overflow-hidden text-truncate">
-                <% like_game_review.game_tags.each do |game_tag| %>
-                  タグ <%= game_tag.game_tag_name %>
-                <% end %>
-              </div>
-              <div class="mb-1 text-nowrap overflow-hidden text-truncate">感想 <%= like_game_review.game_impression %></div>
-              <div class="mb-1 text-nowrap overflow-hidden text-truncate">￥ <%= like_game_review.game_price.to_s(:delimited) %></div>
-              <div>
-                評価 <div id="review_display<%= like_game_review.id %>"></div>
-                <%= render "public/game_reviews/review_display", game_review: like_game_review %>
-              </div>
-            </div>
-          </div>
-          <div class="card-footer">
-            <%= link_to "詳細へ", game_review_path(like_game_review), class:"link-dark" %>
-          </div>
-        </div>
-      <% end %>
+    <% if @like_game_reviews.present? %>
+      <%= render "public/game_reviews/index", game_reviews: @like_game_reviews %>
     <% else %>
       <div class="col-12 pb-5">
         <h6 class="text-center">いいねしたゲームレビューはありません。</h6>

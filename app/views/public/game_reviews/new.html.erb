@@ -2,12 +2,12 @@
   <h2 class="text-center">ゲームレビュー</h2>
   <div class="col-12 border-bottom">
     <a class="ms-5 ms-4">
-      <%= link_to new_game_review_path do %>
+      <%= link_to new_game_review_path(search_game_genre: "", search_game_tag: "", search_game_rating: "") do %>
         ゲームレビュー
       <% end %>
     </a>
     <a class="ms-3">
-      <%= link_to new_goods_review_path do %>
+      <%= link_to new_goods_review_path(search_goods_tag: "", search_goods_rating: "") do %>
         グッズレビュー
       <% end %>
     </a>
@@ -17,6 +17,14 @@
 <div class="container">
   <div class="row mt-5 justify-content-center">
     <div class="col-7 pb-5 border-bottom">
+      <% if @game_review.errors.any? %>
+        <%= @game_review.errors.count %>件のエラーが発生しました
+        <ul>
+          <% @game_review.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
       <%= form_with model: @game_review do |f| %>
         <table class="table table-borderless">
           <tr>
@@ -78,16 +86,16 @@
               <%= f.label :評価  %>
             </th>
             <td>
-              <div class="form-group row" id="review">
+              <div class="form-group row" id="game_review">
                 <%= f.hidden_field :game_rating, id: :review_star %>
               </div>
-              <%= render "review" %>
+              <%= render "game_review" %>
             </td>
           </tr>
         </table>
 
         <div class="actions mt-4 text-center">
-          <%= f.submit "登録", class:"btn btn-info btn-lg link-light fw-bold btn-block" %>
+          <%= f.submit "投稿", class:"btn btn-info btn-lg link-light fw-bold btn-block" %>
         </div>
       <% end %>
     </div>

@@ -1,0 +1,62 @@
+<% comments.each do |comment| %>
+  <tr>
+    <td id="comment-profile-image">
+      <%= image_tag comment.member.get_profile_image(50, 50) %>
+    </td>
+
+    <td class="text-break" id="comment-body">
+      <%= comment.member.member_name %>
+
+      <%= l comment.created_at, format: :long %><br>
+
+      <% if !@room_chats.nil? %>
+        <%= safe_join(comment.room_chat.split("\n"),tag(:br)) %>
+      <% elsif !@group_chats.nil? %>
+        <%= safe_join(comment.group_chat.split("\n"),tag(:br)) %>
+      <% elsif !@game_comments.nil? %>
+        <%= safe_join(comment.game_comment.split("\n"),tag(:br)) %>
+      <% elsif !@goods_comments.nil? %>
+        <%= safe_join(comment.goods_comment.split("\n"),tag(:br)) %>
+      <% end %>
+    </td>
+
+    <td id="comment-edit">
+      <% if comment.member.id == current_member.id %>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          </button>
+
+          <ul class="dropdown-menu">
+            <li class="text-center">
+              <a class="dropdown-item">
+                <% if !@room_chats.nil? %>
+                  <%= link_to "編集", group_room_path(@group_room, room_chat_id: comment), class:"link-dark" %>
+                <% elsif !@group_chats.nil? %>
+                  <%= link_to "編集", group_path(@group, group_chat_id: comment), class:"link-dark" %>
+                <% elsif !@game_comments.nil? %>
+                  <%= link_to "編集", game_review_path(@game_review, game_comment_id: comment), class:"link-dark" %>
+                <% elsif !@goods_comments.nil? %>
+                  <%= link_to "編集", goods_review_path(@goods_review, goods_comment_id: comment), class:"link-dark" %>
+                <% end %>
+              </a>
+            </li>
+
+            <li class="text-center">
+              <a class="dropdown-item">
+                <% if !@room_chats.nil? %>
+                  <%= link_to "削除", group_room_room_chat_path(@group_room, comment), method: :delete, class:"link-dark" %>
+                <% elsif !@group_chats.nil? %>
+                  <%= link_to "削除", group_group_chat_path(@group, comment), method: :delete, class:"link-dark" %>
+                <% elsif !@game_comments.nil? %>
+                  <%= link_to "削除", game_review_game_comment_path(@game_review, comment), method: :delete, class:"link-dark" %>
+                <% elsif !@goods_comments.nil? %>
+                  <%= link_to "削除", goods_review_goods_comment_path(@goods_review, comment), method: :delete, class:"link-dark" %>
+                <% end %>
+              </a>
+            </li>
+          </ul>
+        </div>
+      <% end %>
+    </td>
+  </tr>
+<% end %>

@@ -32,11 +32,12 @@ class Public::GroupsController < ApplicationController
     if @group.update(group_params)
       redirect_to request.referer
     else
+      @group_chat = GroupChat.new
       @group_room = GroupRoom.new
-      @group_members = @group.members
-      @group_rooms = @group.group_rooms
+      @group_members = @group.members.page(params[:page]).per(10)
+      @group_rooms = @group.group_rooms.page(params[:page]).per(10)
       @group_chats = @group.group_chats
-      render 'show'
+      redirect_to group_path(@group)
     end
   end
 

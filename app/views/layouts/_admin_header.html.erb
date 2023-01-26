@@ -9,7 +9,7 @@
     <div class="col-4">
       <ul class="d-flex flex-row list-unstyled">
         <li class="nav-link">
-          <%= link_to "ジャンル一覧", admin_genres_path, class:"text-decoration-none link-dark" %>
+          <%= link_to "ジャンル一覧・登録", admin_genres_path, class:"text-decoration-none link-dark" %>
         </li>
         <div class="vr"></div>
         <li class="nav-link">
@@ -29,12 +29,6 @@
     <div class="col ms-auto">
       <div class="d-flex flex-row justify-content-end">
         <div class="nav-link">
-          <%= link_to game_likes_path do %>
-            <i class="fa-regular fa-heart link-dark"></i>
-          <% end %>
-        </div>
-
-        <div class="nav-link">
           <div class="link-dark">
             <button class="actions btn btn-sm" data-bs-toggle="modal" data-bs-target="#search">
               <i class="fa-solid fa-magnifying-glass"></i>
@@ -46,7 +40,7 @@
                     <h5 class="modal-title">検索</h5>
                     <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
-                  <%= form_with url: searchs_path, method: :get do  |f| %>
+                  <%= form_with url: admin_searchs_path, method: :get do  |f| %>
                     <div class="modal-body">
                       <div class="mt-3">
                         <%= f.search_field :search_member, placeholder: "メンバーネーム", class:"form-control" %>

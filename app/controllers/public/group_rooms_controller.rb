@@ -29,9 +29,10 @@ class Public::GroupRoomsController < ApplicationController
     if @group_room.update(group_room_params)
       redirect_to request.referer
     else
+      @room_chat = RoomChat.new
       @room_members = @group_room.room_members
       @room_chats = @group_room.room_chats
-      render 'show'
+      redirect_to group_room_path(@group_room)
     end
   end
 
@@ -52,8 +53,6 @@ class Public::GroupRoomsController < ApplicationController
     params.require(:group_room)
           .permit(:room_name, :room_owner_id, :group_id)
   end
-
-  private
 
   def room_member_confirm
     @group_room = GroupRoom.find(params[:id])

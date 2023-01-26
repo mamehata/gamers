@@ -8,7 +8,7 @@ class GameReview < ApplicationRecord
   belongs_to :member
   has_one :group, dependent: :destroy, class_name: 'Group'
 
-  validates :game_title, :game_summary, :game_impression, :game_price, :game_rating, :genre_id, presence: true
+  validates :game_title, :game_summary, :game_impression, :game_price, :game_rating, presence: true
   validates :game_price, numericality: true
 
   def save_tag(game_tags)

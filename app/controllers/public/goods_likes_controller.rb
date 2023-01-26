@@ -3,7 +3,7 @@ class Public::GoodsLikesController < ApplicationController
   before_action :like_review_confirm_contributor, except: [:index]
 
   def index
-    @like_goods_reviews = current_member.like_goods_reviews
+    @like_goods_reviews = current_member.like_goods_reviews.page(params[:page]).per(20)
   end
 
   def create

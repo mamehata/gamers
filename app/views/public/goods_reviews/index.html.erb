@@ -1,17 +1,23 @@
 <div class="row mt-4">
-  <h2 class="text-center">グッズレビュー一覧</h2>
-  <div class="col-12 d-flex flex-row border-bottom id="sab-nav-link"">
+  <h2 class="text-center">
+    <% if @word.nil? %>
+      グッズレビュー一覧
+    <% else %>
+      <%= @source %>が<%= @word %>のグッズレビュー一覧
+    <% end %>
+  </h2>
+  <div class="col-12 d-flex flex-row border-bottom" id="sab-nav-link">
     <a class="ms-5 ms-4">
-      <%= link_to game_reviews_path class:"link-color" do %>
+      <%= link_to game_reviews_path do %>
         ゲームレビュー一覧
       <% end %>
     </a>
     <a class="ms-3">
-      <%= link_to goods_reviews_path class:"link-color" do %>
+      <%= link_to goods_reviews_path do %>
         グッズレビュー一覧
       <% end %>
     </a>
-    <div class="link-dark" id ="filtering-layout">
+    <div class="link-dark ms-auto" id ="filtering-layout">
       <button class="actions btn btn-sm" data-bs-toggle="modal" data-bs-target="#filtering">
         <i class="fa-solid fa-filter"></i>
       </button>
@@ -22,7 +28,7 @@
               <h5 class="modal-title">絞り込み</h5>
               <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <%= form_with url: searchs_path, method: :get do  |f| %>
+            <%= form_with url: goods_reviews_path, method: :get do  |f| %>
               <div class="modal-body">
                 <div class="mt-3">
                   <%= f.collection_select :search_goods_tag, GoodsTag.all, :goods_tag_name, :goods_tag_name, {prompt: "グッズタグを選択してください"}, class:"form-select" %>
@@ -48,6 +54,16 @@
     </div>
   </div>
 </div>
-<div class="row mt-5 px-5 justify-content-center border-bottom">
-  <%= render "index", goods_reviews: @goods_reviews %>
+<div class="row mt-5 pb-5 px-5 justify-content-center border-bottom">
+  <% if @goods_reviews.present? %>
+    <%= render "index", goods_reviews: @goods_reviews %>
+  <% else %>
+    <h6 class="text-center">
+      <% if @word.nil? %>
+        グッズレビューは投稿されていません。
+      <% else %>
+        <%= @source %>が<%= @word %>のグッズレビューはありません。
+      <% end %>
+    </h6>
+  <% end %>
 </div>
