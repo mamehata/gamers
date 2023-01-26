@@ -9,6 +9,14 @@
         <%= image_tag @member.get_profile_image(150, 150), class:"img-thumbnail", id:"profile-image" %>
       </div>
       <div class="col-4" id="table">
+        <% if @member.errors.any? %>
+          <%= @member.errors.count %>件のエラーが発生しました
+          <ul>
+            <% @member.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
         <table class="table table-borderless">
           <tr>
             <th>メンバーネーム</th>

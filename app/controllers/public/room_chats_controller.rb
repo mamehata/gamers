@@ -4,10 +4,10 @@ class Public::RoomChatsController < ApplicationController
 
   def create
     @room_chat = RoomChat.new(room_chat_params)
-    if @room_chat.save
+    if @room_chat.save!
       redirect_to request.referer
     else
-      redirect_to group_room_path(@room_chat.group)
+      redirect_to group_room_path(@room_chat.group_room_id)
     end
   end
 
@@ -20,7 +20,7 @@ class Public::RoomChatsController < ApplicationController
   def destroy
     @room_chat = RoomChat.find(params[:id])
     @room_chat.destroy
-    redirect_to request.referer
+    redirect_to group_room_path(@room_chat.group_room_id)
   end
 
   private

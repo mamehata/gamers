@@ -45,9 +45,9 @@
       <tr>
         <th>評価</th>
         <td>
-          <div id="review_display<%= @goods_review.id %>">
+          <div id="goods_review_display<%= @goods_review.id %>">
           </div>
-          <%= render "review_display", goods_review: @goods_review %>
+          <%= render "public/goods_reviews/goods_review_display", goods_review: @goods_review %>
         </td>
       </tr>
     </table>

@@ -25,7 +25,11 @@
         </div>
       </div>
       <div class="card-footer">
-        <%= link_to "詳細へ", game_review_path(game_review), class:"link-dark" %>
+        <% if !admin_signed_in? %>
+          <%= link_to "詳細へ", game_review_path(game_review), class:"link-dark" %>
+        <% else %>
+          <%= link_to "詳細へ", admin_game_review_path(game_review), class:"link-dark" %>
+        <% end %>
       </div>
     </div>
   <% end %>

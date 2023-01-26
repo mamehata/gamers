@@ -1,0 +1,25 @@
+<div class="mt-4 input-group d-flex justify-content-center">
+  <div class="col-10 text-wrap">
+    <%= f.text_area :room_chat, placeholder: "コメントを送信", class:"form-control form-control-sm" %>
+  </div>
+
+  <% if comment.id.nil? %>
+    <div>
+      <%= button_tag method: :post do %>
+        <i class="fa-solid fa-square-caret-up"></i>
+      <% end %>
+    </div>
+  <% else %>
+    <div>
+      <%= button_tag method: :patch do %>
+        <i class="fa-solid fa-square-caret-up"></i>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<% unless comment.id.nil? %>
+  <div class="col-3 offset-1">
+    <%= link_to "キャンセル", group_room_path(comment.group_room), class:"link-dark" %>
+  </div>
+<% end %>

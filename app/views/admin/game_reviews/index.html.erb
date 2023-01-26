@@ -1,49 +1,57 @@
 <div class="row mt-4">
   <h2 class="text-center">ゲームレビュー一覧</h2>
-  <div class="col-12 border-bottom">
+  <div class="col-12 d-flex flex-row border-bottom" id="sab-nav-link">
     <a class="ms-5 ms-4">
-      <%= link_to admin_game_reviews_path do %>
+      <%= link_to admin_game_reviews_path(search_game_genre: "", search_game_tag: "", search_game_rating: "") do %>
         ゲームレビュー一覧
       <% end %>
     </a>
     <a class="ms-3">
-      <%= link_to admin_goods_reviews_path do %>
+      <%= link_to admin_goods_reviews_path(search_goods_genre: "", search_goods_tag: "", search_goods_rating: "") do %>
         グッズレビュー一覧
       <% end %>
     </a>
-  </div>
-</div>
-
-<div class="row mt-5 px-5 justify-content-center border-bottom">
-  <div class="col-12 ms-5 ps-4 d-flex flex-row flex-wrap">
-    <% @game_reviews.each do |game_review| %>
-      <div class="card col-2 m-3">
-        <div class="card-header">
-          <%= image_tag game_review.member.get_profile_image(40, 40) %>
-          <%= game_review.member.member_name %>
-        </div>
-
-        <div class="card-body">
-          <div class="card-text">
-            <div class="mb-1 text-nowrap overflow-hidden text-truncate">タイトル <%= game_review.game_title %></div>
-            <div class="mb-1 text-nowrap overflow-hidden text-truncate">概要 <%= game_review.game_summary %></div>
-            <div class="mb-1 text-nowrap overflow-hidden text-truncate">
-              <% game_review.game_tags.each do |game_tag| %>
-                タグ <%= game_tag.game_tag_name %>
-              <% end %>
+    <div class="link-dark ms-auto" id ="filtering-layout">
+      <button class="actions btn btn-sm" data-bs-toggle="modal" data-bs-target="#filtering">
+        <i class="fa-solid fa-filter"></i>
+      </button>
+      <div class="modal fade" id="filtering">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">絞り込み</h5>
+              <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="mb-1 text-nowrap overflow-hidden text-truncate">感想 <%= game_review.game_impression %></div>
-            <div class="mb-1 text-nowrap overflow-hidden text-truncate">￥ <%= game_review.game_price.to_s(:delimited) %></div>
-            <div>
-              評価 <div id="review_display<%= game_review.id %>"></div>
-              <%= render "review_display", game_review: game_review %>
-            </div>
+            <%= form_with url: admin_game_reviews_path, method: :get do  |f| %>
+              <div class="modal-body">
+                <div class="mt-3">
+                  <%= f.collection_select :search_game_genre, Genre.all, :genre_name, :genre_name, {prompt: "ジャンルを選択してください"}, class:"form-select" %>
+                </div>
+
+                <div class="mt-3">
+                  <%= f.collection_select :search_game_tag, GameTag.all, :game_tag_name, :game_tag_name, {prompt: "ゲームタグを選択してください"}, class:"form-select" %>
+                </div>
+
+                <div class="mt-3">
+                  <%= f.select :search_game_rating, [["評価0.5", 0.5], ["評価１", 1], ["評価1.5", 1.5], ["評価2", 2], ["評価2.5", 2.5], ["評価3", 3], ["評価3.5", 3.5], ["評価4", 4], ["評価4.5", 4.5], ["評価5", 5]], {prompt: "評価を選択してください"}, class:"form-select" %>
+                </div>
+
+              <div class="modal-footer">
+                <div class="me-auto">
+                  <%= f.submit "絞り込み", class:"btn btn-success" %>
+                </div>
+
+                <div>
+                  <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            <% end %>
           </div>
         </div>
-        <div class="card-footer">
-          <%= link_to "詳細へ", admin_game_review_path(game_review), class:"link-dark" %>
-        </div>
       </div>
-    <% end %>
+    </div>
   </div>
+</div>
+<div class="row mt-5 px-5 justify-content-center border-bottom">
+  <%= render "public/game_reviews/index", game_reviews: @game_reviews %>
 </div>
