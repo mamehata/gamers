@@ -9,6 +9,7 @@
       <div class="card-body">
         <div class="card-text">
           <div class="mb-1 text-nowrap overflow-hidden text-truncate">タイトル <%= game_review.game_title %></div>
+          <div class="mb-1 text-nowrap overflow-hidden text-truncate">タイトル <%= game_review.game_title %></div>
           <div class="mb-1 text-nowrap overflow-hidden text-truncate">概要 <%= game_review.game_summary %></div>
           <div class="mb-1 text-nowrap overflow-hidden text-truncate">ジャンル <%= game_review.genre.genre_name %></div>
           <div class="mb-1 text-nowrap overflow-hidden text-truncate">
@@ -24,12 +25,17 @@
           </div>
         </div>
       </div>
-      <div class="card-footer">
-        <% if !admin_signed_in? %>
-          <%= link_to "詳細へ", game_review_path(game_review), class:"link-dark" %>
-        <% else %>
-          <%= link_to "詳細へ", admin_game_review_path(game_review), class:"link-dark" %>
-        <% end %>
+      <div class="card-footer d-flex flex-row">
+        <div class="col-4">
+          <% if !admin_signed_in? %>
+            <%= link_to "詳細へ", game_review_path(game_review), class:"link-dark" %>
+          <% else %>
+            <%= link_to "詳細へ", admin_game_review_path(game_review), class:"link-dark" %>
+          <% end %>
+        </div>
+        <div class="col-6 ms-auto text-end">
+          いいね数：<%= game_review.game_likes.count %>
+        </div>
       </div>
     </div>
   <% end %>

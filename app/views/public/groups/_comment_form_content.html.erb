@@ -1,4 +1,13 @@
 <div class="mt-4 input-group d-flex justify-content-center">
+  <% if !@game_comment.nil? %>
+    <div class="col-12 ms-5 ps-5" id="game-comment-count-<%= @game_review.id %>">
+      コメント数：<%= @game_comments.count %>
+    </div>
+  <% elsif !@goods_comment.nil? %>
+    <div class="col-12 ms-5 ps-5" id="goods-comment-count-<%= @goods_review.id %>">
+      コメント数：<%= @goods_comments.count %>
+    </div>
+  <% end %>
   <div class="col-10 text-wrap">
     <% if !@room_chat.nil? %>
       <%= f.text_area :room_chat, placeholder: "コメントを送信", class:"form-control form-control-sm" %>
@@ -41,13 +50,13 @@
 <% unless comment.id.nil? %>
   <div class="col-3 offset-1">
     <% if !@room_chat.nil? %>
-      <%= link_to "キャンセル", group_room_path(comment.group_room, source: "0"), remote: true, class:"link-dark" %>
+      <%= link_to "キャンセル", group_room_path(comment.group_room), remote: true, class:"link-dark" %>
     <% elsif !@group_chat.nil? %>
-      <%= link_to "キャンセル", group_path(comment.group, source: "0"), remote: true, class:"link-dark" %>
+      <%= link_to "キャンセル", group_path(comment.group), remote: true, class:"link-dark" %>
     <% elsif !@game_comment.nil? %>
-      <%= link_to "キャンセル", game_review_path(comment.game_review, source: "0"), remote: true, class:"link-dark" %>
+      <%= link_to "キャンセル", game_review_path(comment.game_review), remote: true, class:"link-dark" %>
     <% elsif !@goods_comment.nil? %>
-      <%= link_to "キャンセル", goods_review_path(comment.goods_review, source: "0"), remote: true, class:"link-dark" %>
+      <%= link_to "キャンセル", goods_review_path(comment.goods_review), remote: true, class:"link-dark" %>
     <% end %>
   </div>
 <% end %>

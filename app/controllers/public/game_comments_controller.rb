@@ -13,8 +13,9 @@ class Public::GameCommentsController < ApplicationController
   def update
     @game_review = GameReview.find(params[:game_review_id])
     @game_comment.update(game_comment_params)
+    @game_comment = GameComment.new
     @game_comments = @game_review.game_comments
-    render "public/game_reviews/game_comment_index.js.erb"
+    render "public/game_reviews/game_comment_update.js.erb"
   end
 
   def destroy

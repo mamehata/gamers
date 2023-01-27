@@ -1,0 +1,2 @@
+$("#follow-<%= @member.id %>").html("<%= j(render 'public/members/follow', member: @member) %>");
+$("#follower-count-<%= @member.id %>").html("フォロワー：<%= @member.followers.count %>人");

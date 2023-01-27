@@ -17,11 +17,7 @@ class Public::GoodsReviewsController < ApplicationController
     end
     respond_to do |format|
       format.html
-      if params[:source] == "0"
-        format.js { render "public/goods_reviews/goods_comment_form.js.erb" }
-      else
-        format.js { render "public/goods_reviews/goods_comment_update_form.js.erb" }
-      end
+      format.js { render "public/goods_reviews/goods_comment_update_form.js.erb" }
     end
   end
 
@@ -43,7 +39,7 @@ class Public::GoodsReviewsController < ApplicationController
   def create
     @goods_review = GoodsReview.new(goods_review_params.except(:goods_tag_name))
     @goods_review.member_id = current_member.id
-    goods_tags = params[:goods_review][:goods_tag_name].split(/\A[[:space:]]\z/)
+    goods_tags = params[:goods_review][:goods_tag_name].split(/[\A[:space:]\z]/)
     if @goods_review.save
       @goods_review.save_tag(goods_tags)
       flash[:notice] = "レビューが投稿されました"

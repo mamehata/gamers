@@ -1,0 +1,3 @@
+$("#goods-comment-form-<%= @goods_review.id %>").html("<%= j(render 'public/groups/comment_form', comment: @goods_comment) %>");
+$("#goods-comment-index-<%= @goods_review.id %>").html("<%= j(render 'public/groups/comment', comments: @goods_comments) %>");
+$("#goods-comment-count-<%= @goods_review.id %>").html("コメント数：<%= @goods_comments.count %>");

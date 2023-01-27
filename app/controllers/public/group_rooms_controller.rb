@@ -13,11 +13,7 @@ class Public::GroupRoomsController < ApplicationController
     end
     respond_to do |format|
       format.html
-      if params[:source] == "0"
-        format.js { render "public/group_rooms/room_comment_form.js.erb" }
-      else
-        format.js { render "public/group_rooms/room_comment_update_form.js.erb" }
-      end
+      format.js { render "public/group_rooms/room_comment_update_form.js.erb" }
     end
   end
 

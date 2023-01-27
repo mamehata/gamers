@@ -14,8 +14,9 @@ class Public::GroupChatsController < ApplicationController
     @group = Group.find(params[:group_id])
     @group_chat = GroupChat.find(params[:id])
     @group_chat.update(group_chat_params)
+    @group_chat = GroupChat.new
     @group_chats = @group.group_chats
-    render "public/groups/group_comment_index.js.erb"
+    render "public/groups/group_comment_update.js.erb"
   end
 
   def destroy

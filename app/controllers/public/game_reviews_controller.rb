@@ -19,11 +19,7 @@ class Public::GameReviewsController < ApplicationController
     end
     respond_to do |format|
       format.html
-      if params[:source] == "0"
-        format.js { render "public/game_reviews/game_comment_form.js.erb" }
-      else
-        format.js { render "public/game_reviews/game_comment_update_form.js.erb" }
-      end
+      format.js { render "public/game_reviews/game_comment_update_form.js.erb" }
     end
   end
 
@@ -50,7 +46,7 @@ class Public::GameReviewsController < ApplicationController
   def create
     @game_review = GameReview.new(game_review_params.except(:game_tag_name))
     @game_review.member_id = current_member.id
-    game_tags = params[:game_review][:game_tag_name].split(/\A[[:space:]]\z/)
+    game_tags = params[:game_review][:game_tag_name].split(/[\A[:space:]\z]/)
     if @game_review.save
       @game_review.save_tag(game_tags)
       flash[:notice] = "レビューが投稿されました"
@@ -59,10 +55,6 @@ class Public::GameReviewsController < ApplicationController
       @genres = Genre.all
       render "new"
     end
-  end
-
-  def update
-
   end
 
   def destroy

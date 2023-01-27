@@ -22,6 +22,19 @@ ja:
         group_name: "グループネーム"
       group_room:
         room_name: "ルームネーム"
+      game_review:
+        genre_id: "ジャンル"
+        game_title: "タイトル"
+        game_summary: "概要"
+        game_impression: "感想"
+        game_price: "価格"
+        game_rating: "評価"
+      goods_review:
+        goods_name: "グッズ名"
+        goods_summary: "概要"
+        goods_impression: "感想"
+        goods_price: "価格"
+        goods_rating: "評価"
   date:
     abbr_day_names:
     - 日
