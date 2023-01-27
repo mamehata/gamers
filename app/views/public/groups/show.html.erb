@@ -37,8 +37,11 @@
               <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <%= form_with model: @group, url: group_path do |f| %>
+            <%= form_with model: @group, url: group_path, local: false do |f| %>
               <div class="modal-body">
+                <div id="group-update-errors">
+                  <%= render "layouts/error_messages", model: f.object %>
+                </div>
                 <div class="mt-3">
                   <%= f.text_field :group_name, autofocus: true, placeholder: "グループネーム", class:"form-control" %>
                 </div>
@@ -77,7 +80,10 @@
               <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <%= form_with model: @group_room, url: group_rooms_path do |f| %>
+            <%= form_with model: @group_room, url: group_rooms_path, local: false do |f| %>
+              <div id="room-create-errors">
+                <%= render "layouts/error_messages", model: f.object %>
+              </div>
               <div class="modal-body">
                 <div class="mt-3 pb-3">
                   <%= f.text_field :room_name, autofocus: true, placeholder: "ルームネーム", class:"form-control" %>
@@ -121,12 +127,12 @@
     <div class=" pb-3">
       <div class="col-9 offset-2">
         <div id="group-chats">
-          <table class="mt-2 table table-borderless">
+          <table class="mt-2 table table-borderless" id="group-comment-index-<%= @group.id %>">
             <%= render "comment", comments: @group_chats %>
           </table>
         </div>
-        <div>
-          <%= render "public/groups/comment_form", comment: @group_chat %>
+        <div id="group-comment-form-<%= @group.id %>">
+          <%= render "comment_form", comment: @group_chat %>
         </div>
       </div>
     </div>

@@ -17,15 +17,8 @@
 <div class="container">
   <div class="row mt-5 justify-content-center">
     <div class="col-7 pb-5 border-bottom">
-      <% if @goods_review.errors.any? %>
-        <%= @goods_review.errors.count %>件のエラーが発生しました
-        <ul>
-          <% @goods_review.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      <% end %>
       <%= form_with model: @goods_review do |f| %>
+        <%= render "layouts/error_messages", model: f.object %>
         <table class="table table-borderless">
           <tr>
             <th>

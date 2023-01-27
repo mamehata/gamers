@@ -11,28 +11,38 @@ class Public::GroupRoomsController < ApplicationController
     else
       @room_chat = RoomChat.find(params[:room_chat_id])
     end
+    respond_to do |format|
+      format.html
+      if params[:source] == "0"
+        format.js { render "public/group_rooms/room_comment_form.js.erb" }
+      else
+        format.js { render "public/group_rooms/room_comment_update_form.js.erb" }
+      end
+    end
   end
 
   def create
     @group_room = GroupRoom.new(group_room_params)
-    if @group_room.save
-      GroupMember.where(member_id: current_member.id, group_id: @group_room.group.id).first.update(group_room_id: @group_room.id)
-      flash[:notice] = "ルームが作成されました"
-      redirect_to group_room_path(@group_room)
-    else
-      redirect_to request.referer
+    respond_to do |format|
+      if @group_room.save
+        GroupMember.where(member_id: current_member.id, group_id: @group_room.group.id).first.update(group_room_id: @group_room.id)
+        flash[:notice] = "ルームが作成されました"
+        format.html { redirect_to group_room_path(@group_room) }
+      else
+        format.js { render 'public/groups/room_create_error.js.erb' }
+      end
     end
   end
 
   def update
     @group_room = GroupRoom.find(params[:id])
-    if @group_room.update(group_room_params)
-      redirect_to request.referer
-    else
-      @room_chat = RoomChat.new
-      @room_members = @group_room.room_members
-      @room_chats = @group_room.room_chats
-      redirect_to group_room_path(@group_room)
+    respond_to do |format|
+      if @group_room.update(group_room_params)
+        flash[:notice] = "ルームを編集しました。"
+        format.html { redirect_to group_room_path(@group_room) }
+      else
+        format.js { render 'public/group_rooms/room_update_error.js.erb' }
+      end
     end
   end
 

@@ -30,13 +30,13 @@
             <li class="text-center">
               <a class="dropdown-item">
                 <% if !@room_chats.nil? %>
-                  <%= link_to "編集", group_room_path(@group_room, room_chat_id: comment), class:"link-dark" %>
+                  <%= link_to "編集", group_room_path(@group_room, room_chat_id: comment), remote: true, class:"link-dark" %>
                 <% elsif !@group_chats.nil? %>
-                  <%= link_to "編集", group_path(@group, group_chat_id: comment), class:"link-dark" %>
+                  <%= link_to "編集", group_path(@group, group_chat_id: comment), remote: true, class:"link-dark" %>
                 <% elsif !@game_comments.nil? %>
-                  <%= link_to "編集", game_review_path(@game_review, game_comment_id: comment), class:"link-dark" %>
+                  <%= link_to "編集", game_review_path(@game_review, game_comment_id: comment), remote: true, class:"link-dark" %>
                 <% elsif !@goods_comments.nil? %>
-                  <%= link_to "編集", goods_review_path(@goods_review, goods_comment_id: comment), class:"link-dark" %>
+                  <%= link_to "編集", goods_review_path(@goods_review, goods_comment_id: comment), remote: true, class:"link-dark" %>
                 <% end %>
               </a>
             </li>
@@ -44,13 +44,13 @@
             <li class="text-center">
               <a class="dropdown-item">
                 <% if !@room_chats.nil? %>
-                  <%= link_to "削除", group_room_room_chat_path(@group_room, comment), method: :delete, class:"link-dark" %>
+                  <%= link_to "削除", group_room_room_chat_path(@group_room, comment), method: :delete, remote: true, class:"link-dark" %>
                 <% elsif !@group_chats.nil? %>
-                  <%= link_to "削除", group_group_chat_path(@group, comment), method: :delete, class:"link-dark" %>
+                  <%= link_to "削除", group_group_chat_path(@group, comment), method: :delete, remote: true, class:"link-dark" %>
                 <% elsif !@game_comments.nil? %>
-                  <%= link_to "削除", game_review_game_comment_path(@game_review, comment), method: :delete, class:"link-dark" %>
+                  <%= link_to "削除", game_review_game_comment_path(@game_review, comment), method: :delete, remote: true, class:"link-dark" %>
                 <% elsif !@goods_comments.nil? %>
-                  <%= link_to "削除", goods_review_goods_comment_path(@goods_review, comment), method: :delete, class:"link-dark" %>
+                  <%= link_to "削除", goods_review_goods_comment_path(@goods_review, comment), method: :delete, remote: true, class:"link-dark" %>
                 <% end %>
               </a>
             </li>

@@ -1,0 +1,21 @@
+<% if !@goods_review.nil? %>
+  <% if goods_review.goods_likes?(current_member) %>
+    <%= link_to goods_review_goods_like_path(goods_review.id, goods_review.goods_likes), method: :delete, remote: true do %>
+      <i class="fa-solid fa-heart fa-3x"></i><%= goods_review.goods_likes.count %>
+    <% end %>
+  <% else %>
+    <%= link_to goods_review_goods_likes_path(goods_review.id), method: :post, remote: true do %>
+      <i class="fa-regular fa-heart fa-3x"></i><%= goods_review.goods_likes.count %>
+    <% end %>
+  <% end %>
+<% else %>
+  <% if game_review.game_likes?(current_member) %>
+    <%= link_to game_review_game_like_path(game_review.id, game_review.game_likes), method: :delete, remote: true do %>
+      <i class="fa-solid fa-heart fa-3x"></i><%= game_review.game_likes.count %>
+    <% end %>
+  <% else %>
+    <%= link_to game_review_game_likes_path(game_review.id), method: :post, remote: true do %>
+      <i class="fa-regular fa-heart fa-3x"></i><%= game_review.game_likes.count %>
+    <% end %>
+  <% end %>
+<% end %>

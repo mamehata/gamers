@@ -1,0 +1,2 @@
+$("textarea").val('');
+$("#group-comment-index-<%= @group.id %>").html("<%= j(render 'public/groups/comment', comments: @group_chats) %>");

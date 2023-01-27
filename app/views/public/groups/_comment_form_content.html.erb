@@ -41,13 +41,13 @@
 <% unless comment.id.nil? %>
   <div class="col-3 offset-1">
     <% if !@room_chat.nil? %>
-      <%= link_to "キャンセル", group_room_path(comment.group_room), class:"link-dark" %>
+      <%= link_to "キャンセル", group_room_path(comment.group_room, source: "0"), remote: true, class:"link-dark" %>
     <% elsif !@group_chat.nil? %>
-      <%= link_to "キャンセル", group_path(comment.group), class:"link-dark" %>
+      <%= link_to "キャンセル", group_path(comment.group, source: "0"), remote: true, class:"link-dark" %>
     <% elsif !@game_comment.nil? %>
-      <%= link_to "キャンセル", game_review_path(comment.game_review), class:"link-dark" %>
+      <%= link_to "キャンセル", game_review_path(comment.game_review, source: "0"), remote: true, class:"link-dark" %>
     <% elsif !@goods_comment.nil? %>
-      <%= link_to "キャンセル", goods_review_path(comment.goods_review), class:"link-dark" %>
+      <%= link_to "キャンセル", goods_review_path(comment.goods_review, source: "0"), remote: true, class:"link-dark" %>
     <% end %>
   </div>
 <% end %>

@@ -3,24 +3,27 @@ class Public::RoomChatsController < ApplicationController
   before_action :confirm_contributor, except: [:create]
 
   def create
+    @group_room = GroupRoom.find(params[:group_room_id])
     @room_chat = RoomChat.new(room_chat_params)
-    if @room_chat.save
-      redirect_to request.referer
-    else
-      redirect_to group_room_path(@room_chat.group_room_id)
-    end
+    @room_chat.save
+    @room_chats = @group_room.room_chats
+    render "public/group_rooms/room_comment_index.js.erb"
   end
 
   def update
+    @group_room = GroupRoom.find(params[:group_room_id])
     @room_chat = RoomChat.find(params[:id])
     @room_chat.update(room_chat_params)
-    redirect_to group_room_path(@room_chat.group_room_id)
+    @room_chats = @group_room.room_chats
+    render "public/group_rooms/room_comment_index.js.erb"
   end
 
   def destroy
+    @group_room = GroupRoom.find(params[:group_room_id])
     @room_chat = RoomChat.find(params[:id])
     @room_chat.destroy
-    redirect_to group_room_path(@room_chat.group_room_id)
+    @room_chats = @group_room.room_chats
+    render "public/group_rooms/room_comment_index.js.erb"
   end
 
   private
