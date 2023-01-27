@@ -17,6 +17,14 @@ class Public::GameReviewsController < ApplicationController
     else
       @game_comment = GameComment.find(params[:game_comment_id])
     end
+    respond_to do |format|
+      format.html
+      if params[:source] == "0"
+        format.js { render "public/game_reviews/game_comment_form.js.erb" }
+      else
+        format.js { render "public/game_reviews/game_comment_update_form.js.erb" }
+      end
+    end
   end
 
   def index

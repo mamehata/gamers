@@ -14,30 +14,38 @@ class Public::GroupsController < ApplicationController
     else
       @group_chat = GroupChat.find(params[:group_chat_id])
     end
+    respond_to do |format|
+      format.html
+      if params[:source] == "0"
+        format.js { render "public/groups/group_comment_form.js.erb" }
+      else
+        format.js { render "public/groups/group_comment_update_form.js.erb" }
+      end
+    end
   end
 
   def create
     @group = Group.new(group_params)
     @group.members << current_member
-    if @group.save
-      flash[:notice] = "グループが作成されました"
-      redirect_to group_path(@group)
-    else
-      redirect_to game_review_path(@group.game_review_id)
+    respond_to do |format|
+      if @group.save
+        flash[:notice] = "グループが作成されました"
+        format.html { redirect_to group_path(@group) }
+      else
+        format.js { render 'public/game_reviews/group_create_error.js.erb' }
+      end
     end
   end
 
   def update
     @group = Group.find(params[:id])
-    if @group.update(group_params)
-      redirect_to request.referer
-    else
-      @group_chat = GroupChat.new
-      @group_room = GroupRoom.new
-      @group_members = @group.members.page(params[:page]).per(10)
-      @group_rooms = @group.group_rooms.page(params[:page]).per(10)
-      @group_chats = @group.group_chats
-      redirect_to group_path(@group)
+    respond_to do |format|
+      if @group.update(group_params)
+        flash[:notice] = "グループを編集しました。"
+        format.html { redirect_to group_path(@group) }
+      else
+        format.js { render 'public/groups/group_update_error.js.erb' }
+      end
     end
   end
 

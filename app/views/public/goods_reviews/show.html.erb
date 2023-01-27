@@ -62,18 +62,12 @@
     <div class="row d-flex justify-content-evenly">
       <% if member_signed_in? %>
         <div class="col-2 mt-4 text-center">
-          <% if @goods_review.goods_likes?(current_member) %>
-            <%= link_to goods_review_goods_like_path(@goods_review.id), method: :delete do %>
-              <i class="fa-solid fa-heart fa-3x"></i>
-            <% end %>
-          <% else %>
-            <%= link_to goods_review_goods_likes_path(@goods_review.id), method: :post do %>
-              <i class="fa-regular fa-heart fa-3x"></i>
-            <% end %>
-          <% end %>
+          <div id="goods-like-icon">
+            <%= render "like_icon", goods_review: @goods_review %>
+          </div>
         </div>
 
-        <% if @game_review.member_id == current_member.id %>
+        <% if @goods_review.member_id == current_member.id %>
           <button class="actions col-2 mt-4 btn btn btn-danger btn-lg">
             <%= link_to "削除", goods_review_path(@goods_review), method: :delete, class:"text-light" %>
           </button>
@@ -85,9 +79,11 @@
 
 <div class="row justify-content-center">
   <div class="col-7 pb-5 border-bottom">
-    <%= render "public/groups/comment_form", comment: @goods_comment %>
+    <div id="goods-comment-form-<%= @goods_review.id %>">
+      <%= render "public/groups/comment_form", comment: @goods_comment %>
+    </div>
 
-    <table class="mt-3 table table-borderless">
+    <table class="mt-3 table table-borderless" id="goods-comment-index-<%= @goods_review.id %>">
       <%= render "public/groups/comment", comments: @goods_comments %>
     </table>
   </div>

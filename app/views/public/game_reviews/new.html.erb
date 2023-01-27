@@ -17,15 +17,8 @@
 <div class="container">
   <div class="row mt-5 justify-content-center">
     <div class="col-7 pb-5 border-bottom">
-      <% if @game_review.errors.any? %>
-        <%= @game_review.errors.count %>件のエラーが発生しました
-        <ul>
-          <% @game_review.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      <% end %>
       <%= form_with model: @game_review do |f| %>
+        <%= render "layouts/error_messages", model: f.object %>
         <table class="table table-borderless">
           <tr>
             <th>

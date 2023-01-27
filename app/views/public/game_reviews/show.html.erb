@@ -100,8 +100,12 @@
                 <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
 
-              <%= form_with model: @group, url: groups_path do |f| %>
+              <%= form_with model: @group, url: groups_path, local: false do |f| %>
                 <div class="modal-body">
+                  <div id="group-create-errors">
+                    <%= render "layouts/error_messages", model: f.object %>
+                  </div>
+
                   <div class="mt-3">
                     <%= f.text_field :group_name, autofocus: true, placeholder: "グループネーム", class:"form-control" %>
                   </div>
@@ -128,15 +132,9 @@
         </div>
 
         <div class="col-2 mt-4 text-center">
-          <% if @game_review.game_likes?(current_member) %>
-            <%= link_to game_review_game_like_path(@game_review.id), method: :delete do %>
-              <i class="fa-solid fa-heart fa-3x"></i>
-            <% end %>
-          <% else %>
-            <%= link_to game_review_game_likes_path(@game_review.id), method: :post do %>
-              <i class="fa-regular fa-heart fa-3x"></i>
-            <% end %>
-          <% end %>
+          <div id="game-like-icon">
+            <%= render "public/goods_reviews/like_icon", game_review: @game_review %>
+          </div>
         </div>
 
         <% if @game_review.member_id == current_member.id %>
@@ -151,9 +149,11 @@
 
 <div class="row justify-content-center">
   <div class="col-7 pb-5 border-bottom">
-    <%= render "public/groups/comment_form", comment: @game_comment %>
+    <div id="game-comment-form-<%= @game_review.id %>">
+      <%= render "public/groups/comment_form", comment: @game_comment %>
+    </div>
 
-    <table class="mt-3 table table-borderless">
+    <table class="mt-3 table table-borderless" id="game-comment-index-<%= @game_review.id %>">
       <%= render "public/groups/comment", comments: @game_comments %>
     </table>
   </div>

@@ -6,6 +6,8 @@ ja:
       previous: "&lsaquo; 前"
       next: "次 &rsaquo;"
       truncate: "..."
+    # messages:
+    #   create_group: "グループを作成しました"
   activerecord:
     errors:
       messages:
@@ -15,7 +17,11 @@ ja:
           has_many: "%{record}が存在しているので削除できません"
     attributes:
       genre:
-        genre_name: ジャンル名
+        genre_name: "ジャンル名"
+      group:
+        group_name: "グループネーム"
+      group_room:
+        room_name: "ルームネーム"
   date:
     abbr_day_names:
     - 日

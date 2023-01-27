@@ -3,21 +3,27 @@ class Public::GoodsCommentsController < ApplicationController
   before_action :confirm_contributor, except: [:create]
 
   def create
+    @goods_review = GoodsReview.find(params[:goods_review_id])
     @goods_comment = GoodsComment.new(goods_comment_params)
     @goods_comment.save
-    redirect_to request.referer
+    @goods_comments = @goods_review.goods_comments
+    render "public/goods_reviews/goods_comment_index.js.erb"
   end
 
   def update
+    @goods_review = GoodsReview.find(params[:goods_review_id])
     @goods_comment = GoodsComment.find(params[:id])
     @goods_comment.update(goods_comment_params)
-    redirect_to goods_review_path(@goods_comment.goods_review_id)
+    @goods_comments = @goods_review.goods_comments
+    render "public/goods_reviews/goods_comment_index.js.erb"
   end
 
   def destroy
+    @goods_review = GoodsReview.find(params[:goods_review_id])
     @goods_comment = GoodsComment.find(params[:id])
     @goods_comment.destroy
-    redirect_to request.referer
+    @goods_comments = @goods_review.goods_comments
+    render "public/goods_reviews/goods_comment_index.js.erb"
   end
 
   private

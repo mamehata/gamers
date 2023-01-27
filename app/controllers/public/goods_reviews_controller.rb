@@ -15,6 +15,14 @@ class Public::GoodsReviewsController < ApplicationController
     else
       @goods_comment = GoodsComment.find(params[:goods_comment_id])
     end
+    respond_to do |format|
+      format.html
+      if params[:source] == "0"
+        format.js { render "public/goods_reviews/goods_comment_form.js.erb" }
+      else
+        format.js { render "public/goods_reviews/goods_comment_update_form.js.erb" }
+      end
+    end
   end
 
   def index

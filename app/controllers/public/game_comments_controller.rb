@@ -3,19 +3,25 @@ class Public::GameCommentsController < ApplicationController
   before_action :confirm_contributor, except: [:create]
 
   def create
+    @game_review = GameReview.find(params[:game_review_id])
     @game_comment = GameComment.new(game_comment_params)
     @game_comment.save
-    redirect_to request.referer
+    @game_comments = @game_review.game_comments
+    render "public/game_reviews/game_comment_index.js.erb"
   end
 
   def update
+    @game_review = GameReview.find(params[:game_review_id])
     @game_comment.update(game_comment_params)
-    redirect_to game_review_path(@game_comment.game_review_id)
+    @game_comments = @game_review.game_comments
+    render "public/game_reviews/game_comment_index.js.erb"
   end
 
   def destroy
+    @game_review = GameReview.find(params[:game_review_id])
     @game_comment.destroy
-    redirect_to request.referer
+    @game_comments = @game_review.game_comments
+    render "public/game_reviews/game_comment_destroy.js.erb"
   end
 
   private
