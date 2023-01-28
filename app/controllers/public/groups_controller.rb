@@ -9,6 +9,14 @@ class Public::GroupsController < ApplicationController
     @group_members = @group.members.page(params[:page]).per(10)
     @group_rooms = @group.group_rooms.page(params[:page]).per(10)
     @group_chats = @group.group_chats
+    @group_chats.each do |group_chat|
+      notification = current_member.notifications.find_by_group_chat_id(group_chat)
+      if !notification.nil?
+        unless notification.see?
+          notification.update(see: true)
+        end
+      end
+    end
     if params[:group_chat_id].nil?
       @group_chat = GroupChat.new
     else
