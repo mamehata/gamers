@@ -149,6 +149,7 @@
               <th>メンバー数</th>
               <th>紹介文</th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <% @groups.each do |group| %>
@@ -160,6 +161,13 @@
                 <td><%= group_owner.member_name %></td>
                 <td><%= group.members.count %></td>
                 <td><%= group.group_introduction %></td>
+                <td>
+                  <% if group.notifications.where(see: false).any? && @member.notifications.where(see: false).any? %>
+                    <i class="fa-solid fa-bell"></i>
+                  <% else %>
+                    <i class="fa-regular fa-bell"></i>
+                  <% end %>
+                </td>
                 <td>
                   <% if current_member == @member %>
                     <%= link_to "グループページへ", group_path(group), class:"text-dark" %>

@@ -21,6 +21,7 @@ class Member < ApplicationRecord
   has_many :reverse_of_follows, class_name: "Follow", foreign_key: "followed_id", dependent: :destroy
   has_many :followings, through: :follows, source: :followed
   has_many :followers, through: :reverse_of_follows, source: :follower
+  has_many :notifications, dependent: :destroy
 
   validates :member_name, presence: true
 
