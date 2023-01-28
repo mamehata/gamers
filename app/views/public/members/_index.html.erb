@@ -3,6 +3,7 @@
     <table class="table" id="member-index-table">
       <% members.each do |member| %>
         <tr class="align-middle">
+          <td><%= member.id %></td>
           <td class="link-dark">
             <% if !admin_signed_in? %>
               <%= link_to member_path(member), class:"link-dark" do %>

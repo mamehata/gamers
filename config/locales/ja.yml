@@ -6,8 +6,6 @@ ja:
       previous: "&lsaquo; 前"
       next: "次 &rsaquo;"
       truncate: "..."
-    # messages:
-    #   create_group: "グループを作成しました"
   activerecord:
     errors:
       messages:
@@ -23,7 +21,7 @@ ja:
       group_room:
         room_name: "ルームネーム"
       game_review:
-        genre_id: "ジャンル"
+        genre: "ジャンル"
         game_title: "タイトル"
         game_summary: "概要"
         game_impression: "感想"
