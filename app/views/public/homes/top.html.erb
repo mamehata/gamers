@@ -78,8 +78,9 @@
             <div class="mb-1 text-nowrap overflow-hidden text-truncate">グッズネーム <%= goods_review.goods_name %></div>
             <div class="mb-1 text-nowrap overflow-hidden text-truncate">概要 <%= goods_review.goods_summary %></div>
             <div class="mb-1 text-nowrap overflow-hidden text-truncate">
+              タグ
               <% goods_review.goods_tags.each do |goods_tag| %>
-                タグ <%= goods_tag.goods_tag_name %>
+                <%= goods_tag.goods_tag_name %>
               <% end %>
             </div>
             <div class="mb-1 text-nowrap overflow-hidden text-truncate">感想 <%= goods_review.goods_impression %></div>
