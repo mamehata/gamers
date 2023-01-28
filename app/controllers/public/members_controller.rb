@@ -1,6 +1,7 @@
 class Public::MembersController < ApplicationController
   before_action :authenticate_member!
   before_action :member_confirm, except: [:show, :index]
+  before_action :guest_confirm, except: [:show, :index]
 
   def show
     @member = Member.find(params[:id])
@@ -21,13 +22,13 @@ class Public::MembersController < ApplicationController
 
   def update
     @member = Member.find(params[:id])
-    if @member.update(member_params)
-      redirect_to request.referer
-    else
-      @member = Member.find(params[:id])
-      @groups = @member.groups.page(params[:page]).per(10)
-      @game_reviews = @member.game_reviews.page(params[:page]).per(5)
-      render 'show'
+    respond_to do |format|
+      if @member.update(member_params)
+        flash[:notice] = "メンバーを編集しました。"
+        format.html { redirect_to member_path(@member) }
+      else
+        format.js { render 'public/members/member_update_error.js.erb' }
+      end
     end
   end
 
@@ -49,7 +50,14 @@ class Public::MembersController < ApplicationController
 
   def member_confirm
     @member = Member.find(params[:id])
-    unless @member.id == current_member
+    if @member != current_member
+      redirect_to member_path(current_member)
+    end
+  end
+
+  def guest_confirm
+    @member = Member.find(params[:id])
+    if @member == Member.guest
       redirect_to member_path(current_member)
     end
   end

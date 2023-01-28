@@ -7,4 +7,5 @@ class GroupRoom < ApplicationRecord
   belongs_to :room_owner, class_name: 'Member', foreign_key: :room_owner_id
 
   validates :room_name, presence: true
+  validates :group_id, uniqueness: { scope: :room_owner_id }
 end

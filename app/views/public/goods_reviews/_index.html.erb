@@ -23,12 +23,17 @@
           </div>
         </div>
       </div>
-      <div class="card-footer">
-        <% if !admin_signed_in? %>
-          <%= link_to "詳細へ", goods_review_path(goods_review), class:"link-dark" %>
-        <% else %>
-          <%= link_to "詳細へ", admin_goods_review_path(goods_review), class:"link-dark" %>
-        <% end %>
+      <div class="card-footer d-flex flex-row">
+        <div class="col-4">
+          <% if !admin_signed_in? %>
+            <%= link_to "詳細へ", goods_review_path(goods_review), class:"link-dark" %>
+          <% else %>
+            <%= link_to "詳細へ", admin_goods_review_path(goods_review), class:"link-dark" %>
+          <% end %>
+        </div>
+        <div class="col-6 ms-auto text-end">
+          いいね数：<%= goods_review.goods_likes.count %>
+        </div>
       </div>
     </div>
   <% end %>

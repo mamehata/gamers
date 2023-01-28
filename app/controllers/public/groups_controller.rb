@@ -16,11 +16,7 @@ class Public::GroupsController < ApplicationController
     end
     respond_to do |format|
       format.html
-      if params[:source] == "0"
-        format.js { render "public/groups/group_comment_form.js.erb" }
-      else
-        format.js { render "public/groups/group_comment_update_form.js.erb" }
-      end
+      format.js { render "public/groups/group_comment_update_form.js.erb" }
     end
   end
 

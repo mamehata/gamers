@@ -1,2 +1,3 @@
 $("textarea").val('');
 $("#game-comment-index-<%= @game_review.id %>").html("<%= j(render 'public/groups/comment', comments: @game_comments) %>");
+$("#game-comment-count-<%= @game_review.id %>").html("コメント数：<%= @game_comments.count %>");
