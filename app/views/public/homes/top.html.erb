@@ -33,6 +33,7 @@
           <div class="card-text">
             <div class="mb-1 text-nowrap overflow-hidden text-truncate">タイトル <%= game_review.game_title %></div>
             <div class="mb-1 text-nowrap overflow-hidden text-truncate">概要 <%= game_review.game_summary %></div>
+            <div class="mb-1 text-nowrap overflow-hidden text-truncate">ジャンル <%= game_review.genre.genre_name %></div>
             <div class="mb-1 text-nowrap overflow-hidden text-truncate">
               <% game_review.game_tags.each do |game_tag| %>
                 タグ <%= game_tag.game_tag_name %>
