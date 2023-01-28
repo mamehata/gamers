@@ -161,7 +161,9 @@
                 <td><%= group.members.count %></td>
                 <td><%= group.group_introduction %></td>
                 <td>
-                  <%= link_to "グループページへ", group_path(group), class:"text-dark" %>
+                  <% if current_member == @member %>
+                    <%= link_to "グループページへ", group_path(group), class:"text-dark" %>
+                  <% end %>
                 </td>
               </tr>
             </body>

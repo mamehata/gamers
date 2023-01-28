@@ -46,8 +46,13 @@
             </div>
           </div>
         </div>
-        <div class="card-footer">
-          <%= link_to "詳細へ", game_review_path(game_review), class:"link-dark" %>
+        <div class="card-footer d-flex flex-row">
+          <div class="col-4">
+            <%= link_to "詳細へ", game_review_path(game_review), class:"link-dark" %>
+          </div>
+          <div class="col-6 ms-auto text-end">
+            いいね数：<%= game_review.game_likes.count %>
+          </div>
         </div>
       </div>
     <% end %>
@@ -84,8 +89,13 @@
             </div>
           </div>
         </div>
-        <div class="card-footer">
-          <%= link_to "詳細へ", goods_review_path(goods_review), class:"link-dark" %>
+        <div class="card-footer d-flex flex-row">
+          <div class="col-4">
+            <%= link_to "詳細へ", goods_review_path(goods_review), class:"link-dark" %>
+          </div>
+          <div class="col-6 ms-auto text-end">
+            いいね数：<%= goods_review.goods_likes.count %>
+          </div>
         </div>
       </div>
     <% end %>
