@@ -20,7 +20,7 @@
           </tr>
           <tr>
             <td>
-              <% if @member != Member.guest %>
+              <% if @member.email != 'guest@example.com' %>
                 <% if @member == current_member %>
                   <button class="actions btn btn-success btn-lg fw-bold text-light" data-bs-toggle="modal" data-bs-target="#memberupdate">会員編集</a></button>
                   <div class="modal fade" id="memberupdate">
