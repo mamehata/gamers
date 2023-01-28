@@ -23,8 +23,9 @@ class Public::GoodsCommentsController < ApplicationController
     @goods_review = GoodsReview.find(params[:goods_review_id])
     @goods_comment = GoodsComment.find(params[:id])
     @goods_comment.destroy
+    @goods_comment = GoodsComment.new
     @goods_comments = @goods_review.goods_comments
-    render "public/goods_reviews/goods_comment_index.js.erb"
+    render "public/goods_reviews/goods_comment_destroy.js.erb"
   end
 
   private

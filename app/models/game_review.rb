@@ -6,7 +6,7 @@ class GameReview < ApplicationRecord
   has_many :game_comments, dependent: :destroy
   belongs_to :genre
   belongs_to :member
-  has_one :group, dependent: :destroy, class_name: 'Group'
+  has_one :group, class_name: 'Group', dependent: :destroy
 
   validates :game_title, :game_summary, :game_impression, :game_price, :game_rating, presence: true
   validates :game_price, numericality: true

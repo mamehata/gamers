@@ -23,8 +23,9 @@ class Public::RoomChatsController < ApplicationController
     @group_room = GroupRoom.find(params[:group_room_id])
     @room_chat = RoomChat.find(params[:id])
     @room_chat.destroy
+    @room_chat = RoomChat.new
     @room_chats = @group_room.room_chats
-    render "public/group_rooms/room_comment_index.js.erb"
+    render "public/group_rooms/room_comment_destroy.js.erb"
   end
 
   private

@@ -17,8 +17,12 @@
   height: 180px;
 }
 
-#table > table ~ tr > th, td {
+#profile-table > table ~ tr > th, td {
   height: 60px;
+}
+
+#profile-table > table > tbody > tr > th {
+  width: 35%;
 }
 
 #member-group-table > thead > tr > th:nth-of-type(1) {

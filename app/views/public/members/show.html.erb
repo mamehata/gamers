@@ -8,7 +8,7 @@
       <div class="col-2">
         <%= image_tag @member.get_profile_image(150, 150), class:"img-thumbnail", id:"profile-image" %>
       </div>
-      <div class="col-4" id="table">
+      <div class="col-4" id="profile-table">
         <table class="table table-borderless">
           <tr>
             <th>メンバーネーム</th>
@@ -21,47 +21,49 @@
           <tr>
             <td>
               <% if @member != Member.guest %>
-                <button class="actions btn btn-success btn-lg fw-bold text-light" data-bs-toggle="modal" data-bs-target="#memberupdate">会員編集</a></button>
-                <div class="modal fade" id="memberupdate">
-                  <div class="modal-dialog modal-dialog-centered modal-lg">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title">会員編集</h5>
-                        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <% if @member == current_member %>
+                  <button class="actions btn btn-success btn-lg fw-bold text-light" data-bs-toggle="modal" data-bs-target="#memberupdate">会員編集</a></button>
+                  <div class="modal fade" id="memberupdate">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">会員編集</h5>
+                          <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <%= form_with model: @member, url: member_path, local: false do |f| %>
+                          <div class="modal-body">
+                            <div id="member-update-errors">
+                              <%= render "layouts/error_messages", model: f.object %>
+                            </div>
+
+                            <div class="mt-3">
+                              <%= f.text_field :member_name, autofocus: true, placeholder: "メンバーネーム", class:"form-control" %>
+                            </div>
+
+                            <div class="mt-3 pb-3">
+                              <%= f.text_field :member_introduction, placeholder: "メンバー紹介文", class:"form-control" %>
+                            </div>
+                          </div>
+
+                          <div class="modal-footer">
+                            <div class="me-auto">
+                              <%= f.submit "保存", class:"btn btn-success text-light" %>
+                            </div>
+
+                            <button class="btn btn-danger" type="button">
+                              <%= link_to "退会", confirmation_member_path(@member), local: true, class:"text-light" %>
+                            </button>
+
+                            <div>
+                              <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        <% end %>
                       </div>
-
-                      <%= form_with model: @member, url: member_path, local: false do |f| %>
-                        <div class="modal-body">
-                          <div id="member-update-errors">
-                            <%= render "layouts/error_messages", model: f.object %>
-                          </div>
-
-                          <div class="mt-3">
-                            <%= f.text_field :member_name, autofocus: true, placeholder: "メンバーネーム", class:"form-control" %>
-                          </div>
-
-                          <div class="mt-3 pb-3">
-                            <%= f.text_field :member_introduction, placeholder: "メンバー紹介文", class:"form-control" %>
-                          </div>
-                        </div>
-
-                        <div class="modal-footer">
-                          <div class="me-auto">
-                            <%= f.submit "保存", class:"btn btn-success text-light" %>
-                          </div>
-
-                          <button class="btn btn-danger" type="button">
-                            <%= link_to "退会", confirmation_member_path(@member), local: true, class:"text-light" %>
-                          </button>
-
-                          <div>
-                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                          </div>
-                        </div>
-                      <% end %>
                     </div>
                   </div>
-                </div>
+                <% end %>
               <% end %>
             </td>
             <td>
