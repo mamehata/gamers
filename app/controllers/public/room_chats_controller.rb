@@ -38,7 +38,7 @@ class Public::RoomChatsController < ApplicationController
 
   def confirm_contributor
     @room_chat = RoomChat.find(params[:id])
-    if @room_chat.group_member_id != current_member.id
+    if @room_chat.member_id != current_member.id
       redirect_to group_room_path(@room_chat.group_room_id)
     end
   end
