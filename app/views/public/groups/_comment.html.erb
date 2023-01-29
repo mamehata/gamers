@@ -1,8 +1,7 @@
 <% comments.each do |comment| %>
   <tr>
     <td id="comment-profile-image">
-      <%#= image_tag comment.member.get_profile_image(50, 50) %>
-      <%= comment.member.member_name %>
+      <%= image_tag comment.member.get_profile_image(50, 50) %>
     </td>
 
     <td class="text-break" id="comment-body">
