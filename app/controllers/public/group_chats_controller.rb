@@ -1,6 +1,7 @@
 class Public::GroupChatsController < ApplicationController
   before_action :authenticate_member!
   before_action :confirm_contributor, except: [:create]
+  after_action :create_notifications, only: [:create]
 
   def create
     @group = Group.find(params[:group_id])
@@ -40,6 +41,14 @@ class Public::GroupChatsController < ApplicationController
     @group_chat = GroupChat.find(params[:id])
     if @group_chat.member_id != current_member.id
       redirect_to group_path(@group_chat.group_id)
+    end
+  end
+
+  def create_notifications
+    @group_members = GroupMember.where(group_id: Group.find(params[:group_id]))
+    @not_self_group_members = @group_members.where.not(member_id: current_member)
+    @not_self_group_members.each do |not_self_group_member|
+      Notification.create(member_id: not_self_group_member.member_id, group_chat_id: @group_chat.id, group_id: Group.find(params[:group_id]).id)
     end
   end
 end

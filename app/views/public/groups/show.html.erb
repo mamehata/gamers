@@ -1,5 +1,5 @@
 <div class="row mt-4 pb-4 border-bottom">
-  <h2 class="text-center">グループページ</h2>
+  <h2 class="text-center"><%= @group.group_name %></h2>
 </div>
 
 <div class="row border-bottom justify-content-center">
@@ -42,7 +42,7 @@
                 <div id="group-update-errors">
                   <%= render "layouts/error_messages", model: f.object %>
                 </div>
-                
+
                 <div class="mt-3">
                   <%= f.text_field :group_name, autofocus: true, placeholder: "グループネーム", class:"form-control" %>
                 </div>

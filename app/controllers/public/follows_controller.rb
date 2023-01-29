@@ -3,12 +3,12 @@ class Public::FollowsController < ApplicationController
 
   def followings
     @member = Member.find(params[:member_id])
-    @followings = @member.followings
+    @followings = @member.followings.page(params[:page]).per(20)
   end
 
   def followers
     @member = Member.find(params[:member_id])
-    @followers = @member.followers
+    @followers = @member.followers.page(params[:page]).per(20)
   end
 
   def create

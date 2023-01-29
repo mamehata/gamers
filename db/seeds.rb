@@ -25,11 +25,11 @@ members = Member.create!(
     {email: 'c.@test.com', member_name: 'カツシ', password: '654321', member_introduction: '', profile_image: ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-member3.jpg"), filename: "sample-member3.jpg")},
     {email: 'd.@test.com', member_name: 'アキト', password: '567890', member_introduction: ''},
     {email: 'e.@test.com', member_name: 'ヤマダ', password: '876543', member_introduction: '難しいゲームを中心に幅広いゲームを楽しんでいます。'},
-    {email: 'f.@test.com', member_name: 'メンバーネーム', password: '198765', member_introduction: '楽しいゲーム探しています。', profile_image: ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-member1.jpg"), filename: "sample-member1.jpg")},
-    {email: 'g.@test.com', member_name: 'メンバーネーム', password: '298765', member_introduction: '楽しいゲーム探しています。', profile_image: ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-member1.jpg"), filename: "sample-member1.jpg")},
-    {email: 'h.@test.com', member_name: 'メンバーネーム', password: '398765', member_introduction: '楽しいゲーム探しています。', profile_image: ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-member2.jpg"), filename: "sample-member2.jpg")},
-    {email: 'i.@test.com', member_name: 'メンバーネーム', password: '498765', member_introduction: '楽しいゲーム探しています。', profile_image: ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-member2.jpg"), filename: "sample-member2.jpg")},
-    {email: 'j.@test.com', member_name: 'メンバーネーム', password: '598765', member_introduction: '楽しいゲーム探しています。', profile_image: ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-member3.jpg"), filename: "sample-member3.jpg")},
+    {email: 'f.@test.com', member_name: 'ゴトウ', password: '198765', member_introduction: '楽しいゲーム探しています。', profile_image: ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-member1.jpg"), filename: "sample-member1.jpg")},
+    {email: 'g.@test.com', member_name: 'マコト', password: '298765', member_introduction: '楽しいゲーム探しています。', profile_image: ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-member1.jpg"), filename: "sample-member1.jpg")},
+    {email: 'h.@test.com', member_name: 'タナカ', password: '398765', member_introduction: '楽しいゲーム探しています。', profile_image: ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-member2.jpg"), filename: "sample-member2.jpg")},
+    {email: 'i.@test.com', member_name: 'アーノルド', password: '498765', member_introduction: '楽しいゲーム探しています。', profile_image: ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-member2.jpg"), filename: "sample-member2.jpg")},
+    {email: 'j.@test.com', member_name: 'アルファ', password: '598765', member_introduction: '楽しいゲーム探しています。', profile_image: ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-member3.jpg"), filename: "sample-member3.jpg")},
   ]
 )
 
