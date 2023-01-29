@@ -173,7 +173,7 @@
                 <td><%= group.group_introduction %></td>
                 <td>
                   <% if @member == current_member %>
-                    <% if group.notifications.where(see: false).any? && @member.notifications.where(see: false).any? %>
+                    <% if group.notifications.where(see: false).where(member_id: current_member.id).any? %>
                       <i class="fa-solid fa-bell"></i>
                     <% else %>
                       <i class="fa-regular fa-bell"></i>
