@@ -4,7 +4,7 @@ class Public::GroupRoomsController < ApplicationController
 
   def show
     @group_room = GroupRoom.find(params[:id])
-    @room_members = @group_room.room_members
+    @room_members = @group_room.room_members.page(params[:page]).per(5)
     @room_chats = @group_room.room_chats
     if params[:room_chat_id].nil?
       @room_chat = RoomChat.new
@@ -49,6 +49,9 @@ class Public::GroupRoomsController < ApplicationController
       flash[:notice] = "ルームを解散しました"
       redirect_to group_path(@group_room.group_id)
     else
+      @room_members = @group_room.room_members
+      @room_chats = @group_room.room_chats
+      @room_chat = RoomChat.new
       render 'show'
     end
   end

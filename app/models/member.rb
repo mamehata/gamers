@@ -24,6 +24,7 @@ class Member < ApplicationRecord
   has_many :notifications, dependent: :destroy
 
   validates :member_name, presence: true
+  validates :member_name, uniqueness: true
 
   has_one_attached :profile_image
 

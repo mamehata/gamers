@@ -7,7 +7,12 @@
 }
 
 #comment-profile-image {
+  position: relative;
   width: 5%;
+}
+
+#comment-profile-image > image {
+  position: absolute;
 }
 
 #comment-body {

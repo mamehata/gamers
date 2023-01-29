@@ -144,11 +144,17 @@
           <thead>
             <tr>
               <th>グループネーム</th>
-              <th>ゲームタイトル</th>
+              <th>
+                ゲームタイトル
+              </th>
               <th>オーナー</th>
               <th>メンバー数</th>
               <th>紹介文</th>
-              <th></th>
+              <th>
+                <% if @member == current_member %>
+                  通知
+                <% end %>
+              </th>
               <th></th>
             </tr>
           </thead>
@@ -156,16 +162,22 @@
             <body>
               <tr class="align-middle">
                 <td><%= group.group_name %></td>
-                <td><%= group.game_review.game_title %></td>
+                <td>
+                  <%= link_to game_review_path(group.game_review), class:"text-dark" do %>
+                    <%= group.game_review.game_title %>
+                  <% end %>
+                </td>
                 <% group_owner = Member.find_by(id: group.group_owner_id) %>
                 <td><%= group_owner.member_name %></td>
                 <td><%= group.members.count %></td>
                 <td><%= group.group_introduction %></td>
                 <td>
-                  <% if group.notifications.where(see: false).any? && @member.notifications.where(see: false).any? %>
-                    <i class="fa-solid fa-bell"></i>
-                  <% else %>
-                    <i class="fa-regular fa-bell"></i>
+                  <% if @member == current_member %>
+                    <% if group.notifications.where(see: false).any? && @member.notifications.where(see: false).any? %>
+                      <i class="fa-solid fa-bell"></i>
+                    <% else %>
+                      <i class="fa-regular fa-bell"></i>
+                    <% end %>
                   <% end %>
                 </td>
                 <td>

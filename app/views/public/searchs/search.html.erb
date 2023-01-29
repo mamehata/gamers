@@ -4,7 +4,13 @@
   </div>
 
   <div class="container">
+  <% if @members.present? %>
     <%= render "public/members/index", members: @members %>
+  <% else %>
+    <h6 class="text-center mt-5 pb-5 px-5 border-bottom">
+      メンバーが見つかりませんでした。。
+    </h6>
+  <% end %>
   </div>
 <% elsif !@game_reviews.nil? %>
   <div class="row mt-4">
@@ -24,7 +30,13 @@
   </div>
 
   <div class="row mt-5 px-5 justify-content-center border-bottom">
+  <% if @game_reviews.present? %>
     <%= render "public/game_reviews/index", game_reviews: @game_reviews %>
+  <% else %>
+    <h6 class="text-center pb-5">
+      ゲームレビューが見つかりませんでした。。
+    </h6>
+  <% end %>
   </div>
 <% elsif !@goods_reviews.nil? %>
   <div class="row mt-4">
@@ -44,6 +56,12 @@
   </div>
 
   <div class="row mt-5 px-5 justify-content-center border-bottom">
+  <% if @goods_reviews.present? %>
     <%= render "public/goods_reviews/index", goods_reviews: @goods_reviews %>
+  <% else %>
+    <h6 class="text-center pb-5">
+      グッズレビューが見つかりませんでした。。
+    </h6>
+  <% end %>
   </div>
 <% end %>

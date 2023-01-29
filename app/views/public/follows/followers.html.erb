@@ -1,38 +1,20 @@
-<div class="row mt-4 pb-4 border-bottom">
+<div class="row mt-4 border-bottom">
   <h2 class="text-center"><%= @member.member_name %>さんのフォロワー一覧</h2>
+  <div class="col-12 d-flex flex-row" id="sab-nav-link">
+    <a class="ms-3">
+      <%= link_to member_path(@member) do %>
+        <%= @member.member_name %>さんのマイページ
+      <% end %>
+    </a>
+  </div>
 </div>
 
 <div class="container">
-  <div class="row mt-1 pb-5 justify-content-center">
-    <div class="col-12">
-      <table class="table" id="member-index-table">
-        <% @followers.each do |follower| %>
-          <tr class="align-middle">
-            <td class="link-dark">
-              <%= link_to member_path(follower), class:"link-dark" do %>
-                <%= image_tag follower.get_profile_image(80, 80), class:"img-thumbnail" %>
-                <%= follower.member_name %>
-              <% end %>
-            </td>
-            <td><%= follower.member_introduction %></td>
-            <td>
-              <%= link_to followings_member_follows_path(follower), class:"text-dark" do %>
-                フォロー：<%= follower.followings.count %>人<br>
-              <% end %>
-              <%= link_to followers_member_follows_path(follower), class:"text-dark" do %>
-                フォロワー：<%= follower.followers.count %>人
-              <% end %>
-            </td>
-            <td>
-              ゲームレビュー：<%= follower.game_reviews.count %>件<br>
-              グッズレビュー：<%= follower.goods_reviews.count %>件
-            </td>
-            <td>
-              参加グループ：<%= follower.groups.count %><br>
-            </td>
-          </tr>
-        <% end %>
-      </table>
-    </div>
-  </div>
+  <% if @followers.present? %>
+    <%= render "public/members/index", members: @followers %>
+  <% else %>
+    <h6 class="text-center mt-5 pb-5 px-5 border-bottom">
+      フォローをされていません。
+    </h6>
+  <% end %>
 </div>
