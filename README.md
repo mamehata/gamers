@@ -26,6 +26,13 @@
 - いつもと違うゲームの楽しみ方がしたいと感じた時
 
 ## 設計書
+- gamers_admin_ワイヤーフレーム: [https://app.diagrams.net/#G1186g_9gbFP10jSlBSoxwYUFvOxdYQtKp](https://app.diagrams.net/#G1186g_9gbFP10jSlBSoxwYUFvOxdYQtKp)
+- gamers_public_ワイヤーフレーム: [https://app.diagrams.net/#G1V3DzURdDG8QKIjwH41w6yOTr3qUwLFT1](https://app.diagrams.net/#G1V3DzURdDG8QKIjwH41w6yOTr3qUwLFT1)
+- gamers_admin_UiFlows: [https://app.diagrams.net/#G1tjCmnm3zYCE1W4v3U_W9fz5MlA2lJBf9](https://app.diagrams.net/#G1tjCmnm3zYCE1W4v3U_W9fz5MlA2lJBf9)
+- gamers_public_UiFlows: [https://app.diagrams.net/#G15FMhzOLcLibGqSAi8gkFvr1p2BPB4KmX](https://app.diagrams.net/#G15FMhzOLcLibGqSAi8gkFvr1p2BPB4KmX)
+- gamers_ER図: [https://app.diagrams.net/#G1yZItH927Puqbdnr_OUJn3TJFum2zsfvX](https://app.diagrams.net/#G1yZItH927Puqbdnr_OUJn3TJFum2zsfvX)
+- gamers_テーブル提議書: [https://docs.google.com/spreadsheets/d/13sTHTdGirVPJFCOxH29GtbzRWF4PHjTP02nZGBvUQ3M/edit#gid=1373217982](https://docs.google.com/spreadsheets/d/13sTHTdGirVPJFCOxH29GtbzRWF4PHjTP02nZGBvUQ3M/edit#gid=1373217982)
+- gamers_アプリケーション詳細設計書: [https://docs.google.com/spreadsheets/d/1XXoFIqUXkLoUojmGzW4VMRmFMNnhrc-LmDXids4ullc/edit#gid=501181805](https://docs.google.com/spreadsheets/d/1XXoFIqUXkLoUojmGzW4VMRmFMNnhrc-LmDXids4ullc/edit#gid=501181805)
 - 上記の設計書は初期段階の物です。（開発中より良い物にするため加えた変更が反映されきれておりません。）
 
 ## 開発環境
