@@ -1,14 +1,8 @@
 class Public::GroupChatsController < ApplicationController
   before_action :authenticate_member!
   before_action :confirm_contributor, except: [:create]
-  after_action :create_notifications, only: [:create]
 
   def create
-    @group = Group.find(params[:group_id])
-    @group_chat = GroupChat.new(group_chat_params)
-    @group_chat.save
-    @group_chats = @group.group_chats
-    render "public/groups/group_comment_index.js.erb"
   end
 
   def update
