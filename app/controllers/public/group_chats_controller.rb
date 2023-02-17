@@ -37,12 +37,4 @@ class Public::GroupChatsController < ApplicationController
       redirect_to group_path(@group_chat.group_id)
     end
   end
-
-  def create_notifications
-    @group_members = GroupMember.where(group_id: Group.find(params[:group_id]))
-    @not_self_group_members = @group_members.where.not(member_id: current_member)
-    @not_self_group_members.each do |not_self_group_member|
-      Notification.create(member_id: not_self_group_member.member_id, group_chat_id: @group_chat.id, group_id: Group.find(params[:group_id]).id)
-    end
-  end
 end

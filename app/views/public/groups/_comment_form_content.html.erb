@@ -12,7 +12,9 @@
     <% if !@room_chat.nil? %>
       <%= f.text_area :room_chat, placeholder: "コメントを送信", class:"form-control form-control-sm", id: "text-area" %>
     <% elsif !@group_chat.nil? %>
-      <%= f.text_area :group_chat, placeholder: "コメントを送信", class:"form-control form-control-sm", id: "text-area" %>
+      <div id="group-data" data-group-id="<%= @group.id %>" data-current-member="<%= current_member.id %>">
+        <%= f.text_area :group_chat, placeholder: "コメントを送信", class:"form-control form-control-sm", id: "text-area" %>
+      </div>
     <% elsif !@game_comment.nil? %>
       <%= f.text_area :game_comment, placeholder: "コメントを送信", class:"form-control form-control-sm" %>
     <% elsif !@goods_comment.nil? %>

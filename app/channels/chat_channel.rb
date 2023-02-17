@@ -8,6 +8,13 @@ class ChatChannel < ApplicationCable::Channel
   end
 
   def speak(data)
-    ActionCable.server.broadcast('chat_channel', {chat: data['chat']})
+    @group_chat = GroupChat.new
+    @group = Group.find_by(id: data['group_id'])
+    @group_chat.group_id = data['group_id']
+    @group_chat.member_id = data['current_member']
+    @group_chat.group_chat = data['chat']
+    @group_chat.save
+    @group_chats = @group.group_chats
+    ActionCable.server.broadcast('chat_channel', [group_chats: @group_chats, group_id: data['group_id']])
   end
 end
